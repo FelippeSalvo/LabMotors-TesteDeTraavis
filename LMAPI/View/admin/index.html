@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB MOTOS SERVICE - Painel Administrativo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Barra de Anúncios -->
+    <div class="announcement-bar">
+        <span>ANUNCIO ANUNCIO ANUNCIO ANUNCIO ANUNCIO ANUNCIO</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="../img/Logo.png" alt="Logo da LAB MOTOS SERVICE" class="logo-img">
+            </div>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/contato" class="nav-link">Contato</a>
+                <a href="/quem-somos" class="nav-link">Quem Somos</a>
+                <a href="/servicos" class="nav-link">Serviços</a>
+                <a href="/admin" class="nav-link active">Painel</a>
+            </nav>
+            <button class="signup-btn">SIGN UP</button>
+        </div>
+    </header>
+
+    <!-- Container de Notificações -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="back-link">
+            <a href="/">← Voltar</a>
+        </div>
+        <div class="page-header">
+            <h1 class="page-title">Página do administrador</h1>
+            <p class="page-subtitle">Gerencie peças e clientes do sistema</p>
+        </div>
+
+        <!-- Tabela de Peças -->
+        <div class="peca-table-container">
+            <div class="section-header">
+                <h2 class="section-title">⚙ Gerenciamento de Peças</h2>
+            </div>
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div id="loading" class="loading" style="display: none;">Carregando...</div>
+
+            <table class="peca-table">
+                <thead>
+                    <tr>
+                        <th>ID Peça</th>
+                        <th>Nome Peça</th>
+                        <th>Valor Unitário</th>
+                        <th>Quantidade</th>
+                        <th>
+                            <div class="search-container">
+                                <input
+                                    type="text"
+                                    id="search-input"
+                                    placeholder="Pesquisar Produto"
+                                    class="search-input"
+                                />
+                                <span class="search-icon">🔍</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="pecas-tbody">
+                    <tr>
+                        <td colspan="5" class="no-data">Carregando peças...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Seção de Adicionar -->
+            <div class="table-actions">
+                <div class="add-section">
+                    <h3>Adicionar Nova Peça</h3>
+                    <div class="add-form">
+                        <input
+                            type="text"
+                            id="new-codigo"
+                            placeholder="Código (ex: #456646)"
+                            class="add-input"
+                        />
+                        <input
+                            type="text"
+                            id="new-nome"
+                            placeholder="Nome da Peça"
+                            class="add-input"
+                        />
+                        <input
+                            type="text"
+                            id="new-preco"
+                            placeholder="Valor Unitário (ex: 310,00)"
+                            class="add-input"
+                        />
+                        <input
+                            type="number"
+                            id="new-quantidade"
+                            placeholder="Quantidade"
+                            class="add-input"
+                        />
+                        <button class="add-btn" onclick="handleAdd()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Clientes -->
+        <div class="cliente-table-container">
+            <div class="section-header">
+                <h2 class="section-title">👤 Gerenciamento de Clientes</h2>
+            </div>
+            <div id="cliente-error-message" class="error-message" style="display: none;"></div>
+            <div id="cliente-loading" class="loading" style="display: none;">Carregando...</div>
+
+            <table class="cliente-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Endereço</th>
+                        <th>
+                            <div class="search-container">
+                                <input
+                                    type="text"
+                                    id="cliente-search-input"
+                                    placeholder="Pesquisar Cliente"
+                                    class="search-input"
+                                />
+                                <span class="search-icon">🔍</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-tbody">
+                    <tr>
+                        <td colspan="6" class="no-data">Carregando clientes...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Seção de Adicionar Cliente -->
+            <div class="table-actions">
+                <div class="add-section">
+                    <h3>Adicionar Novo Cliente</h3>
+                    <div class="add-form">
+                        <input
+                            type="text"
+                            id="new-cliente-nome"
+                            placeholder="Nome Completo"
+                            class="add-input"
+                        />
+                        <input
+                            type="text"
+                            id="new-cliente-telefone"
+                            placeholder="Telefone (ex: (11) 99999-9999)"
+                            class="add-input"
+                        />
+                        <input
+                            type="email"
+                            id="new-cliente-email"
+                            placeholder="Email"
+                            class="add-input"
+                        />
+                        <input
+                            type="text"
+                            id="new-cliente-endereco"
+                            placeholder="Endereço"
+                            class="add-input"
+                        />
+                        <button class="add-btn" onclick="handleAddCliente()">Adicionar Cliente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="../img/Logo.png" alt="Logo da LAB MOTOS SERVICE" class="footer-logo-img">
+            </div>
+            <p class="footer-description">
+                A LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, 
+                unindo técnica, confiança e transparência.
+            </p>
+            <div class="footer-bottom">
+                <p class="copyright">
+                    © 2025 Lab Motos - Todos os direitos reservados.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="WhatsApp">📱</a>
+                    <a href="#" class="social-icon" aria-label="Instagram">📷</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">👤</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

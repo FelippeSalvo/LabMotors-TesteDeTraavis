@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\LMAPI.props" />
+</Project>
