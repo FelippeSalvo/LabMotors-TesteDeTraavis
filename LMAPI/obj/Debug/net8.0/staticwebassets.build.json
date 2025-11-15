@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "3cajcNwSFGP8mNzGkuNbQE/ajy2gn5X/IbIqpHaigKU=",
+  "Hash": "laVQlYS6aFKddOB5E0zql67Q+jYho0UDHaqr9OO3c10=",
   "Source": "LMAPI",
   "BasePath": "_content/LMAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }
