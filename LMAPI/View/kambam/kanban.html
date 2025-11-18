@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban - MotoLab</title>
+  <link rel="stylesheet" href="kanban.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="../img/Logo.png" alt="Logo da MotoLab" class="logo-img" />
+      </div>
+      <nav class="nav">
+        <a href="../homepage/index.html" class="nav-link">Home</a>
+        <a href="#contato" class="nav-link">Contato</a>
+        <a href="#quem-somos" class="nav-link">Quem Somos</a>
+        <a href="#servicos" class="nav-link">Serviços</a>
+        <a href="#" class="nav-link active">Painel</a>
+      </nav>
+      <button class="signup-btn">SIGN UP</button>
+    </div>
+  </header>
+
+  <!-- BOTÃO ADICIONAR -->
+  <div class="add-service-container">
+    <button class="add-service-btn" id="openModalBtn">+ Adicionar Serviço</button>
+  </div>
+
+  <!-- KANBAN -->
+  <main class="kanban-container">
+    <div class="kanban-column waiting" data-status="waiting">
+      <h2>Aguardando</h2>
+      <div class="kanban-items" id="waiting"></div>
+    </div>
+
+    <div class="kanban-column progress" data-status="progress">
+      <h2>Em Andamento</h2>
+      <div class="kanban-items" id="progress"></div>
+    </div>
+
+    <div class="kanban-column done" data-status="done">
+      <h2>Concluído</h2>
+      <div class="kanban-items" id="done"></div>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>Adicionar Serviço</h2>
+
+      <label>Cliente:</label>
+      <input type="text" id="clienteInput">
+
+      <label>Moto:</label>
+      <input type="text" id="motoInput">
+
+      <label>Serviço:</label>
+      <input type="text" id="servicoInput">
+
+      <div class="modal-buttons">
+        <button id="closeModalBtn" class="cancel-btn">Cancelar</button>
+        <button id="saveTaskBtn" class="save-btn">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="../img/Logo.png" class="footer-logo-img" alt="Logo MotoLab" />
+        <div class="footer-logo-text">MOTOLAB</div>
+      </div>
+      <p class="footer-description">
+        A MotoLab nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.
+      </p>
+      <div class="footer-bottom">
+        <span class="copyright">© 2025 MotoLab - Todos os direitos reservados.</span>
+        <div class="social-icons">
+          <a href="https://wa.me" class="social-icon" aria-label="WhatsApp">W</a>
+          <a href="https://instagram.com" class="social-icon" aria-label="Instagram">I</a>
+          <a href="https://facebook.com" class="social-icon" aria-label="Facebook">F</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="kanban.js"></script>
+</body>
+</html>
