@@ -7,5 +7,6 @@ namespace LMAPI.Models
         public string Telefone { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Endereco { get; set; } = string.Empty;
+        public bool Admin { get; set; } = false;
     }
 }

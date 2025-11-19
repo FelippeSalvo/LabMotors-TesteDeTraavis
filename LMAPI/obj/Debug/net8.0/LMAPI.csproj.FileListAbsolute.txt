@@ -104,3 +104,41 @@ d:/LMAPI/bin/Debug/net8.0/Data/clientes.json
 /workspaces/LabMotors-TesteDeTraavis/LMAPI/obj/Debug/net8.0/LMAPI.pdb
 /workspaces/LabMotors-TesteDeTraavis/LMAPI/obj/Debug/net8.0/LMAPI.genruntimeconfig.cache
 /workspaces/LabMotors-TesteDeTraavis/LMAPI/obj/Debug/net8.0/ref/LMAPI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\appsettings.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\clientes.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\pecas.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.staticwebassets.endpoints.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.exe
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.deps.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.runtimeconfig.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.pdb
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.csproj.AssemblyReference.cache
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.AssemblyInfoInputs.cache
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.AssemblyInfo.cs
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.csproj.CoreCompileInputs.cache
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.sourcelink.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\scopedcss\bundle\LMAPI.styles.css
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets\msbuild.LMAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets\msbuild.LMAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.LMAPI.props
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.LMAPI.props
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.LMAPI.props
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.csproj.Up2Date
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\refint\LMAPI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.pdb
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.genruntimeconfig.cache
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\ref\LMAPI.dll

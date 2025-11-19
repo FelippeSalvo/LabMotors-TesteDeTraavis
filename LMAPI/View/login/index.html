@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="src/css/footer.css">
 <link rel="stylesheet" href="src/css/header.css">
 <link rel="stylesheet" href="src/css/style.css">
+<link rel="stylesheet" href="../css/notifications.css">
+<script src="../js/notifications.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/api-auth.js"></script>
 
 <script type="text/javascript">
   function toggleSignUp() {
@@ -37,6 +41,86 @@
       loginDiv.style.display = "block";
     }
   }
+
+  // Event listeners para os formulários
+  document.addEventListener('DOMContentLoaded', function() {
+    // Formulário de login
+    const loginForm = document.getElementById('loginform');
+    if (loginForm) {
+      loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const senha = document.getElementById('login-senha').value;
+        
+        try {
+          await window.apiAuth.login(email, senha);
+          if (window.showSuccess) {
+            window.showSuccess('Login realizado com sucesso!');
+          }
+          setTimeout(() => {
+            window.location.href = '../homepage/index.html';
+          }, 500);
+        } catch (error) {
+          if (window.showError) {
+            window.showError('Erro ao fazer login: ' + error.message);
+          }
+        }
+      });
+    }
+
+    // Formulário de cadastro
+    const signupForm = document.getElementById('signupform');
+    if (signupForm) {
+      signupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const nome = document.getElementById('signup-nome').value.trim();
+        const email = document.getElementById('signup-email').value.trim();
+        const telefone = document.getElementById('signup-telefone').value.trim();
+        const senha = document.getElementById('signup-senha').value;
+        const confirmarSenha = document.getElementById('signup-confirmar-senha').value;
+        const errorDiv = document.getElementById('signup-error');
+
+        // Limpar erro anterior
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+
+        // Validações
+        if (!nome || !email || !telefone || !senha || !confirmarSenha) {
+          errorDiv.textContent = 'Por favor, preencha todos os campos.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        if (senha.length < 6) {
+          errorDiv.textContent = 'A senha deve ter no mínimo 6 caracteres.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        if (senha !== confirmarSenha) {
+          errorDiv.textContent = 'As senhas não coincidem.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        try {
+          await window.apiAuth.register(email, senha, nome, telefone);
+          if (window.showSuccess) {
+            window.showSuccess('Cadastro realizado com sucesso!');
+          }
+          setTimeout(() => {
+            window.location.href = '../homepage/index.html';
+          }, 500);
+        } catch (error) {
+          errorDiv.textContent = error.message || 'Erro ao realizar cadastro.';
+          errorDiv.style.display = 'block';
+          if (window.showError) {
+            window.showError(error.message || 'Erro ao realizar cadastro.');
+          }
+        }
+      });
+    }
+  });
 </script>
 
 </head>
@@ -94,49 +178,75 @@
   <header class="header">
     <div class="header-content">
       <div class="logo">
-        <a href="../homepage/index.html" class="nav-link active"><img src="../img/Logo.png" alt="Logo da LabMotos" class="logo-img"></a>
+        <a href="../homepage/index.html"><img src="../img/Logo.png" alt="Logo da LabMotos" class="logo-img"></a>
       </div>
+      <nav class="nav">
+        <a href="../homepage/index.html" class="nav-link">Home</a>
+        <a href="../admin/index.html" class="nav-link nav-link-admin">Admin</a>
+        <a href="../acompanhamento/acomp.html" class="nav-link">Acompanhamento</a>
+        <a href="../kambam/kanban.html" class="nav-link nav-link-admin">Kanban</a>
+      </nav>
+      <button class="signup-btn" style="display: none;"></button>
     </div>
   </header>
 
-  <section id="login" class="section-muted">
+  <section id="login" class="section-muted login-section">
     <div class="container">
       <div id="loginscreen">
-        <div class="service-grid" id="logindiv">
-          <form id="loginform" class="card service-card">
-            <div class="form-grid">
-              <div class="section-head">
-                <h2 class="section-title">Login</h2>
-                <p>Faça seu login para acessar sua página:</p>
-              </div>
-              <br>
-              <div class="field">
+        <div class="service-grid login-grid" id="logindiv">
+          <form id="loginform" class="card service-card login-card">
+            <div class="login-header">
+              <h2 class="section-title">Bem-vindo de volta!</h2>
+              <p class="login-subtitle">Faça login para acessar sua conta</p>
+            </div>
+            <div class="form-grid login-form-grid">
+              <div class="field field-full">
                 <label class="label">E-mail</label>
-                <input type="text" class="input" placeholder="Seu email" required>
+                <input type="email" id="login-email" class="input" placeholder="seu@email.com" required>
               </div>
-              <div class="field">
+              <div class="field field-full">
                 <label class="label">Senha</label>
-                <input type="password" class="input" placeholder="Sua senha" required>
-                <label class="label"><input type="checkbox"><span>Lembrar senha?</span></label>
+                <input type="password" id="login-senha" class="input" placeholder="••••••••" required>
               </div>
-              <div class="field">
-                <a class="label" onclick="toggleForgotPassword()" style="text-decoration: underline; cursor: pointer;">Esqueceu a senha?</a>
+              <div class="field field-full login-options">
+                <label class="checkbox-label">
+                  <input type="checkbox">
+                  <span>Lembrar senha</span>
+                </label>
+                <a class="forgot-link" onclick="toggleForgotPassword()">Esqueceu a senha?</a>
               </div>
-
-            <div class="form-actions">
-              <button type="submit" class="button button-primary">Login</button>
-              <div class="field">
-                <label class="label">Ainda não tem uma conta?</label>
-                <button onclick="toggleSignUp()" class="button button-outline">Cadastre-se</button>
+            </div>
+            <div class="form-actions login-actions">
+              <button type="submit" class="button button-primary login-btn">Entrar</button>
+              <div class="signup-prompt">
+                <span class="signup-text">Ainda não tem uma conta?</span>
+                <button type="button" onclick="toggleSignUp()" class="button button-outline signup-link-btn">Cadastre-se</button>
               </div>
             </div>
           </form>
-        </div>
-        <div class="service-info">
-          <div class="info-block">
-            <div>
-              <h1>LAB MOTOS</h1>
-              <p class="info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+          <div class="service-info login-info">
+            <div class="info-block login-info-block">
+              <div class="login-info-content">
+                <div class="login-logo-wrapper">
+                  <img src="../img/Logo.png" alt="Logo LabMotos" class="login-info-logo">
+                </div>
+                <h1 class="login-info-title">LAB MOTOS</h1>
+                <p class="info-text login-info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+                <div class="login-features">
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                    <span>Atendimento de qualidade</span>
+                  </div>
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-clock"/></svg>
+                    <span>Serviço rápido e eficiente</span>
+                  </div>
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-user"/></svg>
+                    <span>Equipe especializada</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -144,75 +254,103 @@
     </div>
   </section>
 
-  <section id="signup" class="section-muted" style="display: none;">
+  <section id="signup" class="section-muted login-section" style="display: none;">
       <div class="container" id="signupscreen">
-        <div class="service-grid">
-          <form id="signupform" class="card service-card">
-            <div class="form-grid">
-              <div class="section-head">
-                <button onclick="toggleSignUp()" class="button button-outline">Voltar</button>
-                <h2 class="section-title">Cadastro</h2>
+        <div class="service-grid login-grid">
+          <form id="signupform" class="card service-card login-card">
+            <div class="login-header">
+              <button type="button" onclick="toggleSignUp()" class="button button-outline back-btn">← Voltar</button>
+              <h2 class="section-title">Criar conta</h2>
+              <p class="login-subtitle">Preencha os dados abaixo para se cadastrar</p>
+            </div>
+            <div class="form-grid login-form-grid">
+              <div class="field field-full">
+                <label class="label">Nome</label>
+                <input type="text" id="signup-nome" class="input" placeholder="Seu nome completo" required>
               </div>
-              <br>
-              <div class="field">
+              <div class="field field-full">
                 <label class="label">E-mail</label>
-                <input type="text" class="input" placeholder="Seu email" required>
+                <input type="email" id="signup-email" class="input" placeholder="seu@email.com" required>
               </div>
-              <div class="field">
+              <div class="field field-full">
                 <label class="label">Telefone</label>
-                <input type="tel" class="input" placeholder="(00) 00000-0000" required>
+                <input type="tel" id="signup-telefone" class="input" placeholder="(00) 00000-0000" required>
               </div>
-              <div class="field">
+              <div class="field field-full">
                 <label class="label">Senha</label>
-                <input type="password" class="input" placeholder="Sua senha" required>
+                <input type="password" id="signup-senha" class="input" placeholder="Mínimo 6 caracteres" required>
               </div>
-              <div class="field">
+              <div class="field field-full">
                 <label class="label">Confirmar Senha</label>
-                <input type="password" class="input" placeholder="Confirmar senha" required>
+                <input type="password" id="signup-confirmar-senha" class="input" placeholder="Digite a senha novamente" required>
               </div>
-
-            <div class="form-actions">
-              <button type="submit" class="button button-primary">Cadastrar</button>
+            </div>
+            <div id="signup-error" style="color: #d32f2f; margin-top: 10px; display: none;"></div>
+            <div class="form-actions login-actions">
+              <button type="submit" class="button button-primary login-btn">Cadastrar</button>
+              <div class="signup-prompt">
+                <span class="signup-text">Já tem uma conta?</span>
+                <button type="button" onclick="toggleSignUp()" class="button button-outline signup-link-btn">Fazer login</button>
+              </div>
             </div>
           </form>
-        </div>
-        <div class="service-info">
-          <div class="info-block">
-            <div>
-              <h1>LAB MOTOS</h1>
-              <p class="info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+          <div class="service-info login-info">
+            <div class="info-block login-info-block">
+              <div class="login-info-content">
+                <div class="login-logo-wrapper">
+                  <img src="../img/Logo.png" alt="Logo LabMotos" class="login-info-logo">
+                </div>
+                <h1 class="login-info-title">LAB MOTOS</h1>
+                <p class="info-text login-info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+                <div class="login-features">
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-check-circle"/></svg>
+                    <span>Acompanhe seus serviços</span>
+                  </div>
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-clock"/></svg>
+                    <span>Agende online</span>
+                  </div>
+                  <div class="login-feature-item">
+                    <svg class="icon"><use href="#i-user"/></svg>
+                    <span>Histórico completo</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
   </section>
 
-  <section id="forgotpassword" class="section-muted" style="display: none;">
+  <section id="forgotpassword" class="section-muted login-section" style="display: none;">
       <div class="container" id="forgotpasswordscreen">
-        <div class="service-grid">
-          <form id="forgotpasswordform" class="card service-card">
-            <div class="form-grid">
-              <div class="section-head">
-                <button onclick="toggleForgotPassword()" class="button button-outline">Voltar</button>
-                <h2 class="section-title">Esqueceu a senha?</h2>
-                <p>Sem problemas! Digite seu e-mail para que te enviamos a confirmação de redefinição da senha de sua conta.</p>
-              </div>
-              <br>
-              <div class="field">
+        <div class="service-grid login-grid">
+          <form id="forgotpasswordform" class="card service-card login-card">
+            <div class="login-header">
+              <button type="button" onclick="toggleForgotPassword()" class="button button-outline back-btn">← Voltar</button>
+              <h2 class="section-title">Recuperar senha</h2>
+              <p class="login-subtitle">Digite seu e-mail para receber as instruções de redefinição de senha</p>
+            </div>
+            <div class="form-grid login-form-grid">
+              <div class="field field-full">
                 <label class="label">E-mail</label>
-                <input type="text" class="input" placeholder="Seu email" required>
+                <input type="email" class="input" placeholder="seu@email.com" required>
               </div>
-
-            <div class="form-actions">
-              <button type="submit" class="button button-primary">Enviar</button>
+            </div>
+            <div class="form-actions login-actions">
+              <button type="submit" class="button button-primary login-btn">Enviar instruções</button>
             </div>
           </form>
-        </div>
-        <div class="service-info">
-          <div class="info-block">
-            <div>
-              <h1>LAB MOTOS</h1>
-              <p class="info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+          <div class="service-info login-info">
+            <div class="info-block login-info-block">
+              <div class="login-info-content">
+                <div class="login-logo-wrapper">
+                  <img src="../img/Logo.png" alt="Logo LabMotos" class="login-info-logo">
+                </div>
+                <h1 class="login-info-title">LAB MOTOS</h1>
+                <p class="info-text login-info-text">LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+              </div>
             </div>
           </div>
         </div>
