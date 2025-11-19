@@ -35,6 +35,7 @@ namespace LMAPI.Repositories
             existing.Telefone = cliente.Telefone;
             existing.Email = cliente.Email;
             existing.Endereco = cliente.Endereco;
+            existing.Senha = cliente.Senha;
             existing.Admin = cliente.Admin;
 
             _context.Save(clientes);
