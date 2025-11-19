@@ -21,7 +21,8 @@ namespace LMAPI.Controllers
             if (string.IsNullOrWhiteSpace(request.Nome) ||
                 string.IsNullOrWhiteSpace(request.Email) ||
                 string.IsNullOrWhiteSpace(request.Telefone) ||
-                string.IsNullOrWhiteSpace(request.Senha))
+                string.IsNullOrWhiteSpace(request.Senha) ||
+                string.IsNullOrWhiteSpace(request.Endereco))
             {
                 return BadRequest(new AuthResponse
                 {
@@ -57,7 +58,7 @@ namespace LMAPI.Controllers
                 Email = request.Email,
                 Telefone = request.Telefone,
                 Senha = request.Senha, // Em produção, usar hash da senha
-                Endereco = string.Empty,
+                Endereco = request.Endereco,
                 Admin = false
             };
 

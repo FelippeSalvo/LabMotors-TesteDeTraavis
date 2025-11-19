@@ -1,6 +1,4 @@
-// Configuração da API
-const API_BASE_URL = 'http://localhost:5284/api';
-
+var API_BASE_URL = 'http://localhost:5284/api';
 // Estado global
 let pecas = [];
 let editingId = null;
@@ -27,13 +25,15 @@ async function fetchPecas() {
         showLoading(true);
         hideError();
         const response = await fetch(`${API_BASE_URL}/Peca`);
-        if (!response.ok) throw new Error('Erro ao buscar peças');
+        if (!response.ok) throw new Error(`Erro ao buscar peças: ${response.status} ${response.statusText}`);
         pecas = await response.json();
         renderPecas(pecas);
     } catch (error) {
         showError('Erro ao carregar peças. Verifique se a API está rodando em http://localhost:5284');
-        console.error(error);
-        pecasTbody.innerHTML = '<tr><td colspan="5" class="no-data">Erro ao carregar peças</td></tr>';
+        console.error('Erro ao buscar peças:', error);
+        if (pecasTbody) {
+            pecasTbody.innerHTML = '<tr><td colspan="5" class="no-data">Erro ao carregar peças</td></tr>';
+        }
     } finally {
         showLoading(false);
     }
@@ -85,16 +85,23 @@ async function deletePeca(id) {
 
 // Funções de UI
 function showLoading(show) {
-    loadingDiv.style.display = show ? 'block' : 'none';
+    if (loadingDiv) {
+        loadingDiv.style.display = show ? 'block' : 'none';
+    }
 }
 
 function showError(message) {
-    errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+    console.error('Erro:', message);
 }
 
 function hideError() {
-    errorDiv.style.display = 'none';
+    if (errorDiv) {
+        errorDiv.style.display = 'none';
+    }
 }
 
 // Sistema de Notificações
@@ -148,6 +155,11 @@ function formatCurrency(value) {
 }
 
 function renderPecas(pecasToRender) {
+    if (!pecasTbody) {
+        console.error('Elemento pecasTbody não encontrado');
+        return;
+    }
+    
     if (pecasToRender.length === 0) {
         pecasTbody.innerHTML = '<tr><td colspan="5" class="no-data">Nenhuma peça encontrada</td></tr>';
         return;
@@ -325,6 +337,7 @@ async function handleAdd() {
 }
 
 function filteredPecas() {
+    if (!searchInput) return pecas;
     const term = searchInput.value.toLowerCase();
     if (!term) return pecas;
     return pecas.filter(peca =>
@@ -333,24 +346,7 @@ function filteredPecas() {
     );
 }
 
-// Event Listeners
-searchInput.addEventListener('input', () => {
-    renderPecas(filteredPecas());
-});
-
-// Permitir Enter no formulário de adicionar
-document.getElementById('new-codigo').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAdd();
-});
-document.getElementById('new-nome').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAdd();
-});
-document.getElementById('new-preco').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAdd();
-});
-document.getElementById('new-quantidade').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAdd();
-});
+// Event Listeners (serão adicionados no DOMContentLoaded)
 
 // ==================== FUNÇÕES DE CLIENTES ====================
 
@@ -360,13 +356,15 @@ async function fetchClientes() {
         showClienteLoading(true);
         hideClienteError();
         const response = await fetch(`${API_BASE_URL}/Cliente`);
-        if (!response.ok) throw new Error('Erro ao buscar clientes');
+        if (!response.ok) throw new Error(`Erro ao buscar clientes: ${response.status} ${response.statusText}`);
         clientes = await response.json();
         renderClientes(clientes);
     } catch (error) {
         showClienteError('Erro ao carregar clientes. Verifique se a API está rodando em http://localhost:5284');
-        console.error(error);
-        clientesTbody.innerHTML = '<tr><td colspan="6" class="no-data">Erro ao carregar clientes</td></tr>';
+        console.error('Erro ao buscar clientes:', error);
+        if (clientesTbody) {
+            clientesTbody.innerHTML = '<tr><td colspan="6" class="no-data">Erro ao carregar clientes</td></tr>';
+        }
     } finally {
         showClienteLoading(false);
     }
@@ -418,19 +416,31 @@ async function deleteCliente(id) {
 
 // Funções de UI para Clientes
 function showClienteLoading(show) {
-    clienteLoadingDiv.style.display = show ? 'block' : 'none';
+    if (clienteLoadingDiv) {
+        clienteLoadingDiv.style.display = show ? 'block' : 'none';
+    }
 }
 
 function showClienteError(message) {
-    clienteErrorDiv.textContent = message;
-    clienteErrorDiv.style.display = 'block';
+    if (clienteErrorDiv) {
+        clienteErrorDiv.textContent = message;
+        clienteErrorDiv.style.display = 'block';
+    }
+    console.error('Erro:', message);
 }
 
 function hideClienteError() {
-    clienteErrorDiv.style.display = 'none';
+    if (clienteErrorDiv) {
+        clienteErrorDiv.style.display = 'none';
+    }
 }
 
 function renderClientes(clientesToRender) {
+    if (!clientesTbody) {
+        console.error('Elemento clientesTbody não encontrado');
+        return;
+    }
+    
     if (clientesToRender.length === 0) {
         clientesTbody.innerHTML = '<tr><td colspan="6" class="no-data">Nenhum cliente encontrado</td></tr>';
         return;
@@ -598,6 +608,7 @@ async function handleAddCliente() {
 }
 
 function filteredClientes() {
+    if (!clienteSearchInput) return clientes;
     const term = clienteSearchInput.value.toLowerCase();
     if (!term) return clientes;
     return clientes.filter(cliente =>
@@ -608,28 +619,100 @@ function filteredClientes() {
     );
 }
 
-// Event Listeners para Clientes
-clienteSearchInput.addEventListener('input', () => {
-    renderClientes(filteredClientes());
-});
-
-// Permitir Enter no formulário de adicionar cliente
-document.getElementById('new-cliente-nome').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAddCliente();
-});
-document.getElementById('new-cliente-telefone').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAddCliente();
-});
-document.getElementById('new-cliente-email').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAddCliente();
-});
-document.getElementById('new-cliente-endereco').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleAddCliente();
-});
+// Event Listeners para Clientes (serão adicionados no DOMContentLoaded)
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-    fetchPecas();
-    fetchClientes();
+    // Verificar se os elementos DOM existem antes de fazer as requisições
+    if (!pecasTbody || !clientesTbody) {
+        console.error('Elementos DOM não encontrados. Aguardando...');
+        // Tentar novamente após um pequeno delay
+        setTimeout(() => {
+            if (pecasTbody && clientesTbody) {
+                setupEventListeners();
+                fetchPecas();
+                fetchClientes();
+            } else {
+                console.error('Elementos DOM ainda não disponíveis');
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                if (clienteLoadingDiv) clienteLoadingDiv.style.display = 'none';
+            }
+        }, 100);
+    } else {
+        setupEventListeners();
+        fetchPecas();
+        fetchClientes();
+    }
 });
+
+// Configurar event listeners
+function setupEventListeners() {
+    // Event listener para busca de peças
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            renderPecas(filteredPecas());
+        });
+    }
+    
+    // Event listeners para formulário de adicionar peça
+    const newCodigo = document.getElementById('new-codigo');
+    const newNome = document.getElementById('new-nome');
+    const newPreco = document.getElementById('new-preco');
+    const newQuantidade = document.getElementById('new-quantidade');
+    
+    if (newCodigo) {
+        newCodigo.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAdd();
+        });
+    }
+    if (newNome) {
+        newNome.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAdd();
+        });
+    }
+    if (newPreco) {
+        newPreco.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAdd();
+        });
+    }
+    if (newQuantidade) {
+        newQuantidade.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAdd();
+        });
+    }
+    
+    // Event listener para busca de clientes
+    if (clienteSearchInput) {
+        clienteSearchInput.addEventListener('input', () => {
+            renderClientes(filteredClientes());
+        });
+    }
+    
+    // Event listeners para formulário de adicionar cliente
+    const newClienteNome = document.getElementById('new-cliente-nome');
+    const newClienteTelefone = document.getElementById('new-cliente-telefone');
+    const newClienteEmail = document.getElementById('new-cliente-email');
+    const newClienteEndereco = document.getElementById('new-cliente-endereco');
+    
+    if (newClienteNome) {
+        newClienteNome.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddCliente();
+        });
+    }
+    if (newClienteTelefone) {
+        newClienteTelefone.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddCliente();
+        });
+    }
+    if (newClienteEmail) {
+        newClienteEmail.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddCliente();
+        });
+    }
+    if (newClienteEndereco) {
+        newClienteEndereco.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddCliente();
+        });
+    }
+}
 

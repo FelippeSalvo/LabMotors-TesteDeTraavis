@@ -1,21 +1,51 @@
-<header class="header">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento de Serviços - LabMotos</title>
+    <link rel="stylesheet" href="css/acomp.css">
+    <script src="../Auth/api-auth.js"></script>
+    <script src="../Auth/notifications.js"></script>
+    <script>
+        // Verificar autenticação imediatamente antes de renderizar
+        (function() {
+            if (window.apiAuth && !window.apiAuth.isAuthenticated()) {
+                document.write('<style>body{display:none;}</style>');
+                setTimeout(function() {
+                    if (window.showError) {
+                        window.showError('Você precisa estar logado para acessar esta página.');
+                    }
+                    setTimeout(function() {
+                        window.location.href = '../login/index.html';
+                    }, 1500);
+                }, 100);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <header class="header">
         <div class="header-content">
-            <div class="logo">
-                <img src="src/img/Lab motos logo (1).png" alt="Logo da LAB MOTOS SERVICE" class="logo-img">
-            </div>
-            <nav class="nav">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/contato" class="nav-link">Contato</a>
-                <a href="/quem-somos" class="nav-link">Quem Somos</a>
-                <a href="/servicos" class="nav-link">Serviços</a>
-                <a href="/admin" class="nav-link active">Painel</a>
-            </nav>
-            <button class="signup-btn">SIGN UP</button>
+          <div class="logo">
+            <img src="../img/Logo.png" alt="Logo da LabMotos" class="logo-img">
+          </div>
+          <nav class="nav">
+            <a href="../homepage/index.html" class="nav-link">Home</a>
+            <a href="../homepage/index.html#solicitar" class="nav-link">Solicitar Serviço</a>
+            <a href="../homepage/index.html#quem-somos" class="nav-link">Quem Somos</a>
+            <a href="../homepage/index.html#clientes" class="nav-link">Clientes</a>
+            <a href="../homepage/index.html#pecas" class="nav-link">Peças</a>
+            <a href="../acompanhamento/acomp.html" class="nav-link active nav-link-acompanhamento" id="acompanhamento-link">Acompanhamento</a>
+            <a href="../admin/index.html" class="nav-link nav-link-admin">Admin</a>
+            <a href="../kambam/kanban.html" class="nav-link nav-link-admin">Kanban</a>
+          </nav>
+          <button class="signup-btn"><a href="../login/index.html" style="color: white; text-decoration: none;">SIGN UP</a></button>
         </div>
-    </header>
+      </header>
+
 <main class="servicos-container">
     <script src="acomp.js"></script>
-<link rel="stylesheet" href="src/css/acomp.css">
 
   <section class="titulo-servicos">
     <h1>Acompanhamento de Serviços</h1>
@@ -48,7 +78,7 @@
 <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="src/img/Lab motos logo (1).png" alt="Logo da LAB MOTOS SERVICE" class="footer-logo-img">
+                <img src="img/Lab motos logo (1).png" alt="Logo da LAB MOTOS SERVICE" class="footer-logo-img">
             </div>
             <p class="footer-description">
                 A LAB MOTOS nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, 
@@ -66,6 +96,5 @@
             </div>
         </div>
     </footer>
-    <script src="../Auth/api-auth.js"></script>
 </body>
 </html>

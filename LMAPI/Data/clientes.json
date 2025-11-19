@@ -6,7 +6,7 @@
     "Email": "igor@igor.com",
     "Endereco": "Igor House",
     "Senha": "123456",
-    "Admin": false
+    "Admin": true
   },
   {
     "Id": 2,
@@ -19,18 +19,9 @@
   },
   {
     "Id": 3,
-    "Nome": "1",
-    "Telefone": "11",
-    "Email": "1@1",
-    "Endereco": "",
-    "Senha": "123456",
-    "Admin": false
-  },
-  {
-    "Id": 4,
-    "Nome": "ts",
-    "Telefone": "11",
-    "Email": "ts@ts",
+    "Nome": "a",
+    "Telefone": "12",
+    "Email": "a@a",
     "Endereco": "",
     "Senha": "123456",
     "Admin": false
