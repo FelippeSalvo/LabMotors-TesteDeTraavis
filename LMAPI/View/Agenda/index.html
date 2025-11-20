@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda - MotoLab</title>
+  <link rel="stylesheet" href="src/agenda.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="../img/Logo.png" alt="Logo da LabMotos" class="logo-img">
+      </div>
+      <nav class="nav">
+        <a href="../homepage/index.html" class="nav-link">Home</a>
+        <a href="../homepage/index.html#solicitar" class="nav-link">Solicitar Serviço</a>
+        <a href="../homepage/index.html#quem-somos" class="nav-link">Quem Somos</a>
+        <a href="../homepage/index.html#clientes" class="nav-link">Clientes</a>
+        <a href="../homepage/index.html#pecas" class="nav-link">Peças</a>
+        <a href="../acompanhamento/acomp.html" class="nav-link nav-link-acompanhamento" id="acompanhamento-link">Acompanhamento</a>
+        <a href="../admin/index.html" class="nav-link nav-link-admin">Admin</a>
+        <a href="../kambam/kanban.html" class="nav-link nav-link-admin">Kanban</a>
+        <a href="../Agenda/index.html" class="nav-link active">Agenda</a>
+    </nav>
+      <button class="signup-btn"><a href="../login/index.html" style="color: white; text-decoration: none;">SIGN UP</a></button>
+    </div>
+  </header>
+<section class="agenda-section">
+<div class="agenda-content">
+<div class="agenda-text">
+<h1> Agenda </h1>
+<p>Tela destinada ao controle de agendamentos e horários de serviços realizados na oficina, permitindo ao mecânico visualizar, adicionar e gerenciar compromissos de forma prática</p>
+</div>
+<div class="agenda-image">
+<img src="src/img/Agenda-Labmotos.png" alt="Serviço" />
+</div>
+</div>
+</section>
+
+<!-- Calendário e Horários -->
+<section class="calendar-section container">
+  <h2 class="cal-title">Agendamentos</h2>
+  <p class="cal-subtitle">Selecione o dia e escolha um horário disponível</p>
+
+  <div class="calendar-header">
+    <button id="prevMonth" class="cal-arrow">&#10094;</button>
+    <h3 id="currentMonth"></h3>
+    <button id="nextMonth" class="cal-arrow">&#10095;</button>
+    <button id="todayBtn" class="cal-today">Hoje</button>
+  </div>
+
+  <div class="calendar-weekdays">
+    <div class="weekday">Seg</div>
+    <div class="weekday">Ter</div>
+    <div class="weekday">Qua</div>
+    <div class="weekday">Qui</div>
+    <div class="weekday">Sex</div>
+    <div class="weekday">Sáb</div>
+    <div class="weekday">Dom</div>
+  </div>
+
+  <div class="calendar-grid" id="calendarGrid"></div>
+  <div class="time-section">
+    <h3 id="selectedDateTitle">Selecione um dia</h3>
+    <div class="time-grid" id="timeGrid"></div>
+  </div>
+</section>
+<!-- Pop-up de Agendamento -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <div class="popup-header">
+      <h3 id="popupTitle">Novo Agendamento</h3>
+      <button class="popup-close" id="popupClose">&times;</button>
+    </div>
+    <div class="popup-date-info">
+      <p id="popupDateInfo">Data selecionada</p>
+    </div>
+    <div class="agendamentos-list" id="agendamentosList">
+      <h4>Agendamentos do dia</h4>
+      <div id="listaAgendamentos"></div>
+    </div>
+    <div class="popup-form">
+      <h4>Novo Agendamento</h4>
+      <div class="field">
+        <label for="popupTime">Horário *</label>
+        <select id="popupTime" class="input">
+          <option value="">Selecione um horário</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="nomeCliente">Nome do Cliente *</label>
+        <input type="text" id="nomeCliente" class="input" placeholder="Digite o nome do cliente" />
+      </div>
+
+      <div class="field">
+        <label for="tipoServico">Tipo de Serviço *</label>
+        <input type="text" id="tipoServico" class="input" placeholder="Ex: Revisão, Troca de óleo, etc." />
+      </div>
+
+      <div class="field">
+        <label for="placaMoto">Placa *</label>
+        <input type="text" id="placaMoto" class="input" placeholder="ABC-1234 ou ABC1D23" maxlength="8" />
+      </div>
+
+      <div class="field">
+        <label for="telefoneCliente">Telefone/WhatsApp</label>
+        <input type="text" id="telefoneCliente" class="input" placeholder="(00) 00000-0000" />
+      </div>
+
+      <div class="field">
+        <label for="obs">Observações</label>
+        <textarea id="obs" class="textarea" rows="3" placeholder="Observações adicionais (opcional)"></textarea>
+      </div>
+
+      <div class="popup-actions">
+        <button class="popup-cancel" id="popupCancel">Cancelar</button>
+        <button class="popup-confirm" id="popupConfirm">Agendar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="notificationsContainer" class="notifications-container"></div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="../img/Logo.png" class="footer-logo-img" alt="Logo LabMotos">
+        <div class="footer-logo-text">LabMotos</div>
+      </div>
+      <p class="footer-description">A LabMotos nasceu da paixão por motos e do compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.</p>
+      <div class="footer-bottom">
+        <span class="copyright">© 2025 LabMotos - Todos os direitos reservados.</span>
+        <div class="social-icons">
+          <a href="https://wa.me" class="social-icon" aria-label="WhatsApp"><svg class="icon"><use href="#i-phone"/></svg></a>
+          <a href="https://instagram.com" class="social-icon" aria-label="Instagram"><svg class="icon"><use href="#i-camera"/></svg></a>
+          <a href="https://facebook.com" class="social-icon" aria-label="Facebook"><svg class="icon"><use href="#i-globe"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../Auth/api-auth.js"></script>
+  <script src="src/agenda.js"></script>
+</body>
+</html>
