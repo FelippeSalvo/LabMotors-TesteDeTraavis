@@ -35,6 +35,16 @@ namespace LMAPI.Repositories
             existing.ClienteId = servico.ClienteId;
             existing.ValorTotal = servico.ValorTotal;
             existing.PecasUsadas = servico.PecasUsadas;
+            
+            // Atualizar campos de agendamento
+            existing.Cliente = servico.Cliente;
+            existing.TipoServico = servico.TipoServico;
+            existing.Moto = servico.Moto;
+            existing.Placa = servico.Placa;
+            existing.Telefone = servico.Telefone;
+            existing.Data = servico.Data;
+            existing.Horario = servico.Horario;
+            existing.Observacoes = servico.Observacoes;
 
             _context.Save(servicos);
             return true;

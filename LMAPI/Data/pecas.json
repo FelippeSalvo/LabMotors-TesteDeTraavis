@@ -329,13 +329,6 @@
     "PrecoUnitario": 85.00
   },
   {
-    "Id": 49,
-    "Nome": "Pedaleira Esportiva",
-    "Codigo": "PEDESP49",
-    "Quantidade": 6,
-    "PrecoUnitario": 180.00
-  },
-  {
     "Id": 50,
     "Nome": "Protetor de Carter",
     "Codigo": "PROCAR50",

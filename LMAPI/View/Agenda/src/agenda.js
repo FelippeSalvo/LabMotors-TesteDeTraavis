@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const API_BASE_URL = window.API_BASE_URL || 'http://localhost:5284/api';
   // Gera horários de 00:00 até 23:00
   const horarios = [];
   for (let i = 0; i < 24; i++) {
@@ -13,6 +14,44 @@ document.addEventListener("DOMContentLoaded", () => {
   let diaSelecionado = null;
   let dataSelecionadaPopup = null;
   let agendamentoEditando = null;
+
+  // Carregar agendamentos persistidos da API (com base nas ordens de serviço)
+  async function carregarAgendamentosDaAPI() {
+    try {
+      // Sempre começar limpo (evita lixo de navegações anteriores)
+      agendamentos = {};
+
+      const resp = await fetch(`${API_BASE_URL}/OrdemServico`);
+      if (!resp.ok) return;
+      const ordens = await resp.json();
+
+      ordens.forEach(o => {
+        const servico = o.servico || o.Servico;
+        if (!servico) return;
+
+        const dataBruta = servico.data || servico.Data;
+        const horario = servico.horario || servico.Horario;
+        if (!dataBruta || !horario) return;
+
+        const dataObj = new Date(dataBruta);
+        if (isNaN(dataObj.getTime())) return;
+
+        const dataStr = dataObj.toISOString().split('T')[0];
+        if (!agendamentos[dataStr]) agendamentos[dataStr] = [];
+
+        agendamentos[dataStr].push({
+          hora: horario,
+          nome: servico.cliente || servico.Cliente || '',
+          tipo: servico.tipoServico || servico.TipoServico || '',
+          placa: servico.placa || servico.Placa || '',
+          telefone: servico.telefone || servico.Telefone || '',
+          obs: servico.observacoes || servico.Observacoes || ''
+        });
+      });
+    } catch (e) {
+      console.error('Erro ao carregar agendamentos da API:', e);
+    }
+  }
 
   // Sistema de notificações
   function mostrarNotificacao(mensagem, tipo = "success") {
@@ -453,7 +492,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = dataSelecionadaPopup;
       const novoAgendamento = { hora, nome, tipo, placa, telefone, obs };
 
-      if (agendamentoEditando) {
+      // Verificar conflito de horário apenas localmente (para validação)
+      if (!agendamentoEditando) {
+        if (!agendamentos[data]) agendamentos[data] = [];
+        
+        if (agendamentos[data].some(a => a.hora === hora)) {
+          mostrarNotificacao("Este horário já está ocupado! Escolha outro horário.", "error");
+          return;
+        }
+      } else {
         const horaAntiga = agendamentos[data][agendamentoEditando.index].hora;
         if (hora !== horaAntiga) {
           if (agendamentos[data]?.some(a => a.hora === hora)) {
@@ -461,16 +508,40 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
         }
+      }
+
+      // Enviar para API ANTES de salvar localmente (salvamento em JSON no backend)
+      if (window.enviarSolicitacaoServico && !agendamentoEditando) {
+        const dadosSolicitacao = {
+          cliente: nome,
+          tipoServico: tipo,
+          moto: '',
+          placa: placa,
+          telefone: telefone || null,
+          data: data,
+          horario: hora,
+          observacoes: obs || null
+        };
+        
+        // Enviar de forma assíncrona (não bloquear a interface)
+        window.enviarSolicitacaoServico(dadosSolicitacao).then((resultado) => {
+          console.log('✅ Serviço salvo na API (JSON):', resultado);
+          if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('Serviço salvo no sistema! Aparecerá no Kanban.', 'success');
+          }
+        }).catch((error) => {
+          console.error('❌ Erro ao salvar na API:', error);
+          if (window.mostrarNotificacao) {
+            window.mostrarNotificacao('Erro ao salvar no sistema: ' + error.message, 'error');
+          }
+        });
+      }
+
+      // Atualizar visualização local (para o calendário)
+      if (agendamentoEditando) {
         agendamentos[data][agendamentoEditando.index] = novoAgendamento;
         mostrarNotificacao("Agendamento atualizado com sucesso!", "success");
       } else {
-        if (!agendamentos[data]) agendamentos[data] = [];
-        
-        if (agendamentos[data].some(a => a.hora === hora)) {
-          mostrarNotificacao("Este horário já está ocupado! Escolha outro horário.", "error");
-          return;
-        }
-        
         agendamentos[data].push(novoAgendamento);
         mostrarNotificacao("Serviço agendado com sucesso!", "success");
       }
@@ -536,6 +607,8 @@ document.addEventListener("DOMContentLoaded", () => {
     timeSection.style.visibility = "visible";
     timeSection.style.opacity = "1";
   }
-  
-  carregarCalendario();
+
+  carregarAgendamentosDaAPI().finally(() => {
+    carregarCalendario();
+  });
 });

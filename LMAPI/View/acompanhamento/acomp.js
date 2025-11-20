@@ -25,16 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let etapa = 0;
 
-  function atualizarTela() {
-    const atual = servicoData[etapa];
-    statusBtn.textContent = atual.status;
-    statusBtn.dataset.status = atual.status; // muda a cor
-    statusIcon.textContent = atual.icone;
-    relatorioTexto.textContent = atual.comentario;
+  // function atualizarTela() {
+  //   const atual = servicoData[etapa];
+  //   statusBtn.textContent = atual.status;
+  //   statusBtn.dataset.status = atual.status; // muda a cor
+  //   statusIcon.textContent = atual.icone;
+  //   relatorioTexto.textContent = atual.comentario;
 
-    etapa = (etapa + 1) % servicoData.length;
-  }
+  //   etapa = (etapa + 1) % servicoData.length;
+  // }
 
-  atualizarTela();
-  setInterval(atualizarTela, 8000);
+  // atualizarTela();
+  // setInterval(atualizarTela, 8000);
 });

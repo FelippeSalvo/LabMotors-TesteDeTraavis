@@ -142,3 +142,5 @@ C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\refint\LM
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.pdb
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.genruntimeconfig.cache
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\ref\LMAPI.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\ordensServico.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\servicos.json

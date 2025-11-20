@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 1,
+    "Descricao": "1",
+    "ClienteId": 0,
+    "ValorTotal": 0,
+    "PecasUsadas": [],
+    "Cliente": "1",
+    "TipoServico": "1",
+    "Moto": "",
+    "Placa": "ABC-1234",
+    "Telefone": "1",
+    "Data": "2025-11-21",
+    "Horario": "13:00",
+    "Observacoes": "1"
+  }
+]

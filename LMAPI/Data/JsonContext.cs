@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.IO;
+using System;
 
 namespace LMAPI.Data
 {
@@ -8,7 +10,21 @@ namespace LMAPI.Data
 
         public JsonContext(string filePath)
         {
-            _filePath = filePath;
+            // Get the base directory of the application (where the .csproj is)
+            // This ensures the Data folder is always relative to the project root
+            var projectRoot = AppContext.BaseDirectory;
+            // Navigate up from bin/Debug/netX.X or bin/Release/netX.X to the project root
+            while (!File.Exists(Path.Combine(projectRoot, "LMAPI.csproj")) && projectRoot != null)
+            {
+                projectRoot = Path.GetDirectoryName(projectRoot);
+            }
+            
+            if (projectRoot == null)
+            {
+                throw new InvalidOperationException("Could not find project root directory.");
+            }
+
+            _filePath = Path.Combine(projectRoot, filePath);
         }
 
         public List<T> Load()
@@ -22,7 +38,17 @@ namespace LMAPI.Data
 
         public void Save(List<T> data)
         {
-            var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            // Criar diretório se não existir
+            var directory = Path.GetDirectoryName(_filePath);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var json = JsonSerializer.Serialize(data, new JsonSerializerOptions 
+            { 
+                WriteIndented = true 
+            });
             File.WriteAllText(_filePath, json);
         }
     }

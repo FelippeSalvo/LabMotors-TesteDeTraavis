@@ -67,12 +67,6 @@ hr {
   margin: 50px auto;
   max-width: 600px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: 0.3s ease;
-}
-
-.status-servico:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
 .status-servico h2 {
@@ -103,11 +97,6 @@ hr {
 
 .status-icon {
   font-size: 1.8rem;
-  transition: transform 0.3s ease;
-}
-
-.status-servico:hover .status-icon {
-  transform: scale(1.1);
 }
 
 
@@ -139,21 +128,22 @@ hr {
 }
 
 
-.status-btn[data-status="Em Espera"] {
-  background-color: #f8d7da;
-  color: #842029;
-}
-
-.status-btn[data-status="Em Manutenção"] {
+.status-btn[data-status="Aguardando"] {
   background-color: #fff3cd;
   color: #664d03;
+  box-shadow: inset 0 -2px 0 #ffa726;
+}
+
+.status-btn[data-status="Em Andamento"] {
+  background-color: #cfe2ff;
+  color: #084298;
+  box-shadow: inset 0 -2px 0 #42a5f5;
 }
 
 .status-btn[data-status="Concluído"] {
   background-color: #d1e7dd;
-
-
   color: #0f5132;
+  box-shadow: inset 0 -2px 0 #66bb6a;
 }
 
 

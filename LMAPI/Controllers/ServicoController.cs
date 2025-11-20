@@ -10,11 +10,13 @@ namespace LMAPI.Controllers
     public class ServicoController : ControllerBase
     {
         private readonly IServicoRepository _servicoRepo;
+        private readonly IOrdemServicoRepository _ordemServicoRepo;
         private readonly EstoqueService _estoqueService;
 
-        public ServicoController(IServicoRepository servicoRepo, EstoqueService estoqueService)
+        public ServicoController(IServicoRepository servicoRepo, IOrdemServicoRepository ordemServicoRepo, EstoqueService estoqueService)
         {
             _servicoRepo = servicoRepo;
+            _ordemServicoRepo = ordemServicoRepo;
             _estoqueService = estoqueService;
         }
 
@@ -40,7 +42,79 @@ namespace LMAPI.Controllers
                 return BadRequest("Erro: peças insuficientes no estoque.");
 
             _servicoRepo.Add(servico);
+
+            // Criar OrdemServico automaticamente se o serviço tiver dados de agendamento
+            if (!string.IsNullOrEmpty(servico.Placa) || !string.IsNullOrEmpty(servico.Cliente))
+            {
+                var ordemServico = new OrdemServico
+                {
+                    ServicoId = servico.Id,
+                    Status = "Aguardando"
+                };
+                _ordemServicoRepo.Add(ordemServico);
+            }
+
             return CreatedAtAction(nameof(GetById), new { id = servico.Id }, servico);
+        }
+
+        [HttpPost("solicitar")]
+        public IActionResult SolicitarServico([FromBody] SolicitacaoServicoDto solicitacao)
+        {
+            try
+            {
+                // Validar se já existe serviço no mesmo horário/data
+                var servicosExistentes = _servicoRepo.GetAll();
+                var conflito = servicosExistentes.FirstOrDefault(s => 
+                    s.Data.HasValue && 
+                    s.Data.Value.Date == solicitacao.Data.Date &&
+                    !string.IsNullOrEmpty(s.Horario) &&
+                    s.Horario.Trim() == solicitacao.Horario.Trim());
+
+                if (conflito != null)
+                {
+                    return Conflict(new { 
+                        message = $"Este horário ({solicitacao.Horario}) já está ocupado para a data {solicitacao.Data:dd/MM/yyyy}. Por favor, escolha outro horário.",
+                        conflictData = new { 
+                            data = conflito.Data,
+                            horario = conflito.Horario,
+                            cliente = conflito.Cliente
+                        }
+                    });
+                }
+
+                // Criar Servico a partir da solicitação
+                var servico = new Servico
+                {
+                    Descricao = solicitacao.TipoServico,
+                    Cliente = solicitacao.Cliente,
+                    TipoServico = solicitacao.TipoServico,
+                    Moto = solicitacao.Moto,
+                    Placa = solicitacao.Placa,
+                    Telefone = solicitacao.Telefone,
+                    Data = solicitacao.Data,
+                    Horario = solicitacao.Horario,
+                    Observacoes = solicitacao.Observacoes,
+                    ClienteId = 0, // Pode ser ajustado depois
+                    ValorTotal = 0,
+                    PecasUsadas = new List<PecaUsada>()
+                };
+
+                _servicoRepo.Add(servico);
+
+                // Criar OrdemServico automaticamente
+                var ordemServico = new OrdemServico
+                {
+                    ServicoId = servico.Id,
+                    Status = "Aguardando"
+                };
+                _ordemServicoRepo.Add(ordemServico);
+
+                return CreatedAtAction(nameof(GetById), new { id = servico.Id }, new { servico, ordemServico });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Erro ao criar serviço: {ex.Message}", exception = ex.ToString() });
+            }
         }
 
         [HttpPut("{id}")]

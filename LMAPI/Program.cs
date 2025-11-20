@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
 builder.Services.AddSingleton<IPecaRepository, PecaRepository>();
 builder.Services.AddSingleton<IServicoRepository, ServicoRepository>();
+builder.Services.AddSingleton<IOrdemServicoRepository>(sp => 
+    new OrdemServicoRepository(sp.GetRequiredService<IServicoRepository>()));
 
 // Serviços
 // pra q tantos codigos, se a vida n é programada

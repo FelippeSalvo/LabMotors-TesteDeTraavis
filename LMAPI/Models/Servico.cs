@@ -11,6 +11,16 @@ namespace LMAPI.Models
 
         // Peças utilizadas neste traves
         public List<PecaUsada> PecasUsadas { get; set; } = new();
+
+        // Campos para agendamento/solicitação
+        public string? Cliente { get; set; }
+        public string? TipoServico { get; set; }
+        public string? Moto { get; set; }
+        public string? Placa { get; set; }
+        public string? Telefone { get; set; }
+        public DateTime? Data { get; set; }
+        public string? Horario { get; set; }
+        public string? Observacoes { get; set; }
     }
 
     //classe representando um bresk usada num traves
