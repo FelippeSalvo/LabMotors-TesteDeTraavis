@@ -1,5 +1,10 @@
 
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 
 
@@ -54,7 +59,7 @@ hr {
   border-top: 2px solid #ccc;
 }
 
-/* ---------- atlz status ---------- */
+
 .status-servico {
   background-color: #fff;
   border-radius: 20px;
@@ -154,199 +159,5 @@ hr {
 
 
 
-.header {
-    background-color: #1a1a1a;
-    padding: 15px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    
-    display: flex;
-    align-items: center;
 
 
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    gap: 20px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-img {
-    height: 120px;
-    width: auto;
-
-
-
-    cursor: pointer;
-    transition: transform 0.3s ease;
-
-    object-fit: contain;
-
-}
-
-.logo-img:hover {
-    transform: scale(1.05);
-}
-
-.logo-icon {
-    font-size: 32px;
-    color: #d32f2f;
-}
-
-.logo-text {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-/* ---------- se buga dnv eu desisto ---------- */
-
-.nav {
-    display: flex;
-    gap: 30px;
-
-
-    flex-wrap: wrap;
-}
-
-.nav-link {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 16px;
-
-    transition: color 0.3s;
-    position: relative;
-}
-
-.nav-link:hover {
-    color: #d32f2f;
-}
-
-.nav-link.active {
-    color: #d32f2f;
-    font-weight: bold;
-}
-
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #d32f2f;
-}
-
-.signup-btn {
-    background-color: transparent;
-    border: 2px solid #666;
-    color: #ffffff;
-    padding: 10px 25px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.signup-btn:hover {
-    border-color: #d32f2f;
-    color: #d32f2f;
-    background-color: rgba(211, 47, 47, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
-}
-.footer {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    padding: 50px 20px 30px;
-    margin-top: auto;
-}
-
-.footer-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.footer-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.footer-logo-img {
-    height: 250px;
-    width: auto;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    transition: transform 0.3s ease;
-    object-fit: contain;
-}
-
-.footer-logo-img:hover {
-    transform: scale(1.05);
-}
-
-.footer-logo-icon {
-    font-size: 48px;
-    color: #d32f2f;
-}
-
-.footer-logo-text {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.footer-description {
-    max-width: 800px;
-    margin: 0 auto 40px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #cccccc;
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #333;
-}
-
-.copyright {
-    font-size: 14px;
-    color: #cccccc;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.social-icon {
-    font-size: 24px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-icon:hover {
-    color: #d32f2f;
-}
