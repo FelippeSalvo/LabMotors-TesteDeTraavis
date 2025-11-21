@@ -1,5 +1,5 @@
 // API de Autenticação
-var API_BASE_URL = 'http://localhost:5284/api';
+var API_BASE_URL = 'https://labmotors-testedetraavis.onrender.com/api';
 // Tornar disponível globalmente
 window.API_BASE_URL = API_BASE_URL;
 
@@ -15,7 +15,7 @@ window.apiAuth = {
      */
     async register(email, senha, nome, telefone, endereco) {
         try {
-            const apiUrl = window.API_BASE_URL || API_BASE_URL || 'http://localhost:5284/api';
+            const apiUrl = window.API_BASE_URL || API_BASE_URL || 'https://labmotors-testedetraavis.onrender.com/api';
             const response = await fetch(`${apiUrl}/auth/register`, {
                 method: 'POST',
                 headers: {
@@ -60,7 +60,7 @@ window.apiAuth = {
      */
     async login(email, senha) {
         try {
-            const apiUrl = window.API_BASE_URL || API_BASE_URL || 'http://localhost:5284/api';
+            const apiUrl = window.API_BASE_URL || API_BASE_URL || 'https://labmotors-testedetraavis.onrender.com/api';
             const response = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {

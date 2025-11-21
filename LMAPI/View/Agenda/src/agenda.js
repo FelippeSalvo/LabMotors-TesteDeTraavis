@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE_URL = window.API_BASE_URL || 'http://localhost:5284/api';
+  const API_BASE_URL = window.API_BASE_URL || 'https://labmotors-testedetraavis.onrender.com/api';
   // Gera horários de 00:00 até 23:00
   const horarios = [];
   for (let i = 0; i < 24; i++) {

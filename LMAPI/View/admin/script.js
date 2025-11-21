@@ -1,4 +1,4 @@
-var API_BASE_URL = 'http://localhost:5284/api';
+var API_BASE_URL = 'https://labmotors-testedetraavis.onrender.com/api';
 // Estado global
 let pecas = [];
 let editingId = null;
@@ -29,7 +29,7 @@ async function fetchPecas() {
         pecas = await response.json();
         renderPecas(pecas);
     } catch (error) {
-        showError('Erro ao carregar peças. Verifique se a API está rodando em http://localhost:5284');
+        showError('Erro ao carregar peças. Verifique se a API está rodando em https://labmotors-testedetraavis.onrender.com');
         console.error('Erro ao buscar peças:', error);
         if (pecasTbody) {
             pecasTbody.innerHTML = '<tr><td colspan="5" class="no-data">Erro ao carregar peças</td></tr>';
@@ -360,7 +360,7 @@ async function fetchClientes() {
         clientes = await response.json();
         renderClientes(clientes);
     } catch (error) {
-        showClienteError('Erro ao carregar clientes. Verifique se a API está rodando em http://localhost:5284');
+        showClienteError('Erro ao carregar clientes. Verifique se a API está rodando em https://labmotors-testedetraavis.onrender.com');
         console.error('Erro ao buscar clientes:', error);
         if (clientesTbody) {
             clientesTbody.innerHTML = '<tr><td colspan="6" class="no-data">Erro ao carregar clientes</td></tr>';

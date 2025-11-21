@@ -1,5 +1,5 @@
 // Configuração da API
-var API_BASE_URL = 'http://localhost:5284/api';
+var API_BASE_URL = 'https://labmotors-testedetraavis.onrender.com/api';
 
 // Mapeamento de status
 const STATUS_MAP = {

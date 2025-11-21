@@ -1,4 +1,4 @@
-var API_BASE_URL = 'http://localhost:5284/api';
+var API_BASE_URL = 'https://labmotors-testedetraavis.onrender.com/api';
 
 // Função para enviar solicitação de serviço
 async function enviarSolicitacaoServico(dados) {
