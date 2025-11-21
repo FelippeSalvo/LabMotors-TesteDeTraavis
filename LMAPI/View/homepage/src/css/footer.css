@@ -76,6 +76,15 @@
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon .icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
 }
 
 .social-icon:hover {
