@@ -1248,23 +1248,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Felippe Salvo\\.nuget\\packages\\": {},
+    "C:\\Users\\bruno\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Felippe Salvo\\LabMotors-TesteDeTraavis\\LMAPI\\LMAPI.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\OneDrive\\Área de Trabalho\\depaus\\LabMotors-TesteDeTraavis\\LMAPI\\LMAPI.csproj",
       "projectName": "LMAPI",
-      "projectPath": "C:\\Users\\Felippe Salvo\\LabMotors-TesteDeTraavis\\LMAPI\\LMAPI.csproj",
-      "packagesPath": "C:\\Users\\Felippe Salvo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Felippe Salvo\\LabMotors-TesteDeTraavis\\LMAPI\\obj\\",
+      "projectPath": "C:\\Users\\bruno\\OneDrive\\Área de Trabalho\\depaus\\LabMotors-TesteDeTraavis\\LMAPI\\LMAPI.csproj",
+      "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bruno\\OneDrive\\Área de Trabalho\\depaus\\LabMotors-TesteDeTraavis\\LMAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Felippe Salvo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1291,7 +1291,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1325,7 +1325,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
