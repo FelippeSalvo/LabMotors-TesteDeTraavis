@@ -1,5 +1,6 @@
 using LMAPI.Services;
 using LMAPI.Repositories;
+using LMAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +9,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configurar Supabase
+builder.Services.AddSingleton<SupabaseService>();
+
 // Repos de paus do bresaks sdo travis
-builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
-builder.Services.AddSingleton<IPecaRepository, PecaRepository>();
-builder.Services.AddSingleton<IServicoRepository, ServicoRepository>();
+builder.Services.AddSingleton<IClienteRepository>(sp => 
+    new ClienteRepository(sp.GetRequiredService<SupabaseService>()));
+builder.Services.AddSingleton<IPecaRepository>(sp => 
+    new PecaRepository(sp.GetRequiredService<SupabaseService>()));
+builder.Services.AddSingleton<IServicoRepository>(sp => 
+    new ServicoRepository(sp.GetRequiredService<SupabaseService>()));
 builder.Services.AddSingleton<IOrdemServicoRepository>(sp => 
-    new OrdemServicoRepository(sp.GetRequiredService<IServicoRepository>()));
+    new OrdemServicoRepository(
+        sp.GetRequiredService<SupabaseService>(),
+        sp.GetRequiredService<IServicoRepository>()));
 
 // Serviços
 // pra q tantos codigos, se a vida n é programada

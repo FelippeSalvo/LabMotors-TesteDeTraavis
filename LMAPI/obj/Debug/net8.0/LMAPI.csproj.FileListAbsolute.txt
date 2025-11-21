@@ -106,8 +106,6 @@ d:/LMAPI/bin/Debug/net8.0/Data/clientes.json
 /workspaces/LabMotors-TesteDeTraavis/LMAPI/obj/Debug/net8.0/ref/LMAPI.dll
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\appsettings.json
-C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\clientes.json
-C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\pecas.json
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.staticwebassets.endpoints.json
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.exe
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\LMAPI.deps.json
@@ -142,5 +140,20 @@ C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\refint\LM
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.pdb
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\LMAPI.genruntimeconfig.cache
 C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\obj\Debug\net8.0\ref\LMAPI.dll
-C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\ordensServico.json
-C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Data\servicos.json
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\MimeMapping.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Core.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Functions.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Gotrue.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Postgrest.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Realtime.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Supabase.Storage.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\System.Reactive.dll
+C:\Users\Felippe Salvo\LabMotors-TesteDeTraavis\LMAPI\bin\Debug\net8.0\Websocket.Client.dll

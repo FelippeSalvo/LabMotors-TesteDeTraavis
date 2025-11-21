@@ -1,54 +1,106 @@
 using LMAPI.Models;
 using LMAPI.Data;
+using Supabase.Postgrest.Models;
+using Supabase.Postgrest.Attributes;
 using System.Linq;
 using System;
 
 namespace LMAPI.Repositories
 {
+    [Table("ordens_servico")]
+    public class OrdemServicoDb : BaseModel
+    {
+        [PrimaryKey("id")]
+        public int Id { get; set; }
+        
+        [Column("servico_id")]
+        public int ServicoId { get; set; }
+        
+        [Column("data_emissao")]
+        public DateTime DataEmissao { get; set; }
+        
+        [Column("status")]
+        public string Status { get; set; } = "Aguardando";
+    }
+
     public class OrdemServicoRepository : IOrdemServicoRepository
     {
-        private readonly JsonContext<OrdemServico> _context;
+        private readonly SupabaseService _supabase;
         private readonly IServicoRepository _servicoRepo;
-        private readonly string _filePath = "Data/ordensServico.json";
 
-        public OrdemServicoRepository(IServicoRepository servicoRepo)
+        public OrdemServicoRepository(SupabaseService supabase, IServicoRepository servicoRepo)
         {
-            _context = new JsonContext<OrdemServico>(_filePath);
+            _supabase = supabase;
             _servicoRepo = servicoRepo;
+        }
+
+        public async Task<List<OrdemServico>> GetAllAsync()
+        {
+            var response = await _supabase.Client
+                .From<OrdemServicoDb>()
+                .Get();
+            
+            var ordens = new List<OrdemServico>();
+            
+            foreach (var ordemDb in response.Models)
+            {
+                var ordem = ConvertToOrdemServico(ordemDb);
+                ordem.Servico = _servicoRepo.GetById(ordem.ServicoId);
+                ordens.Add(ordem);
+            }
+            
+            return ordens;
         }
 
         public List<OrdemServico> GetAll()
         {
-            var ordens = _context.Load();
-            // Carregar dados do Servico relacionado
-            foreach (var ordem in ordens)
-            {
-                ordem.Servico = _servicoRepo.GetById(ordem.ServicoId);
-            }
-            return ordens;
+            return GetAllAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<OrdemServico?> GetByIdAsync(int id)
+        {
+            var response = await _supabase.Client
+                .From<OrdemServicoDb>()
+                .Where(x => x.Id == id)
+                .Single();
+            
+            if (response == null) return null;
+            
+            var ordem = ConvertToOrdemServico(response);
+            ordem.Servico = _servicoRepo.GetById(ordem.ServicoId);
+            return ordem;
         }
 
         public OrdemServico? GetById(int id)
         {
-            var ordem = _context.Load().FirstOrDefault(o => o.Id == id);
-            if (ordem != null)
+            return GetByIdAsync(id).GetAwaiter().GetResult();
+        }
+
+        public async Task<List<OrdemServico>> GetByStatusAsync(string status)
+        {
+            var response = await _supabase.Client
+                .From<OrdemServicoDb>()
+                .Where(x => x.Status == status)
+                .Get();
+            
+            var ordens = new List<OrdemServico>();
+            
+            foreach (var ordemDb in response.Models)
             {
+                var ordem = ConvertToOrdemServico(ordemDb);
                 ordem.Servico = _servicoRepo.GetById(ordem.ServicoId);
+                ordens.Add(ordem);
             }
-            return ordem;
+            
+            return ordens;
         }
 
         public List<OrdemServico> GetByStatus(string status)
         {
-            var ordens = _context.Load().Where(o => o.Status == status).ToList();
-            foreach (var ordem in ordens)
-            {
-                ordem.Servico = _servicoRepo.GetById(ordem.ServicoId);
-            }
-            return ordens;
+            return GetByStatusAsync(status).GetAwaiter().GetResult();
         }
 
-        public OrdemServico? GetByPlaca(string placa)
+        public async Task<OrdemServico?> GetByPlacaAsync(string placa)
         {
             var servicos = _servicoRepo.GetAll();
             var servico = servicos.FirstOrDefault(s => 
@@ -56,49 +108,128 @@ namespace LMAPI.Repositories
             
             if (servico == null) return null;
 
-            var ordem = _context.Load().FirstOrDefault(o => o.ServicoId == servico.Id);
-            if (ordem != null)
-            {
-                ordem.Servico = servico;
-            }
+            var response = await _supabase.Client
+                .From<OrdemServicoDb>()
+                .Where(x => x.ServicoId == servico.Id)
+                .Single();
+            
+            if (response == null) return null;
+            
+            var ordem = ConvertToOrdemServico(response);
+            ordem.Servico = servico;
             return ordem;
+        }
+
+        public OrdemServico? GetByPlaca(string placa)
+        {
+            return GetByPlacaAsync(placa).GetAwaiter().GetResult();
+        }
+
+        public async Task AddAsync(OrdemServico ordemServico)
+        {
+            var ordemDb = ConvertToOrdemServicoDb(ordemServico);
+            var response = await _supabase.Client
+                .From<OrdemServicoDb>()
+                .Insert(ordemDb);
+            
+            var inserted = response.Models.FirstOrDefault();
+            if (inserted != null)
+            {
+                ordemServico.Id = inserted.Id;
+            }
         }
 
         public void Add(OrdemServico ordemServico)
         {
-            var ordens = _context.Load();
-            ordemServico.Id = ordens.Count == 0 ? 1 : ordens.Max(o => o.Id) + 1;
-            ordens.Add(ordemServico);
-            _context.Save(ordens);
+            AddAsync(ordemServico).GetAwaiter().GetResult();
+        }
+
+        public async Task<bool> UpdateStatusAsync(int id, string status)
+        {
+            try
+            {
+                // Buscar a ordem atual
+                var ordemAtual = await _supabase.Client
+                    .From<OrdemServicoDb>()
+                    .Where(x => x.Id == id)
+                    .Single();
+                
+                if (ordemAtual == null) return false;
+                
+                ordemAtual.Status = status;
+                
+                await _supabase.Client
+                    .From<OrdemServicoDb>()
+                    .Where(x => x.Id == id)
+                    .Update(ordemAtual);
+                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool UpdateStatus(int id, string status)
         {
-            var ordens = _context.Load();
-            var existing = ordens.FirstOrDefault(o => o.Id == id);
-            if (existing == null) return false;
+            return UpdateStatusAsync(id, status).GetAwaiter().GetResult();
+        }
 
-            existing.Status = status;
-            _context.Save(ordens);
-            return true;
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                // Buscar a ordem para pegar o ServicoId
+                var ordem = await GetByIdAsync(id);
+                if (ordem == null) return false;
+
+                // Remover também o serviço associado (para sumir da agenda)
+                if (ordem.ServicoId != 0)
+                {
+                    _servicoRepo.Delete(ordem.ServicoId);
+                }
+
+                await _supabase.Client
+                    .From<OrdemServicoDb>()
+                    .Where(x => x.Id == id)
+                    .Delete();
+                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool Delete(int id)
         {
-            var ordens = _context.Load();
-            var ordem = ordens.FirstOrDefault(o => o.Id == id);
-            if (ordem == null) return false;
+            return DeleteAsync(id).GetAwaiter().GetResult();
+        }
 
-            // Remover também o serviço associado (para sumir da agenda)
-            if (ordem.ServicoId != 0)
+        private OrdemServico ConvertToOrdemServico(OrdemServicoDb db)
+        {
+            return new OrdemServico
             {
-                _servicoRepo.Delete(ordem.ServicoId);
-            }
+                Id = db.Id,
+                ServicoId = db.ServicoId,
+                DataEmissao = db.DataEmissao,
+                Status = db.Status
+            };
+        }
 
-            ordens.Remove(ordem);
-            _context.Save(ordens);
-            return true;
+        private OrdemServicoDb ConvertToOrdemServicoDb(OrdemServico ordem)
+        {
+            return new OrdemServicoDb
+            {
+                Id = ordem.Id,
+                ServicoId = ordem.ServicoId,
+                DataEmissao = ordem.DataEmissao,
+                Status = ordem.Status
+            };
         }
     }
 }
+
 
