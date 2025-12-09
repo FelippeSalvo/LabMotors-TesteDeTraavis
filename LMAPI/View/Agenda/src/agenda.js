@@ -45,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
           tipo: servico.tipoServico || servico.TipoServico || '',
           placa: servico.placa || servico.Placa || '',
           telefone: servico.telefone || servico.Telefone || '',
-          obs: servico.observacoes || servico.Observacoes || ''
+          obs: servico.observacoes || servico.Observacoes || '',
+          servicoId: servico.id || servico.Id || null,
+          clienteId: servico.clienteId || servico.ClienteId || 0
         });
       });
     } catch (e) {
@@ -268,15 +270,22 @@ document.addEventListener("DOMContentLoaded", () => {
     horarios.forEach(h => {
       const slot = document.createElement("div");
       slot.classList.add("time-slot");
-      slot.textContent = h;
-
+      
       const jaAgendado = agendamentos[dataStr]?.some(a => a.hora === h);
 
       if (jaAgendado) {
         slot.classList.add("booked");
         const agendamento = agendamentos[dataStr].find(a => a.hora === h);
-        slot.title = `${agendamento.nome} - ${agendamento.tipo}`;
+        slot.title = `🔒 Horário Ocupado\nCliente: ${agendamento.nome}\nServiço: ${agendamento.tipo}\nPlaca: ${agendamento.placa}`;
+        slot.style.cursor = 'not-allowed';
+        // Criar um span para o horário para melhor controle
+        const horaSpan = document.createElement("span");
+        horaSpan.textContent = h;
+        horaSpan.style.position = "relative";
+        horaSpan.style.zIndex = "1";
+        slot.appendChild(horaSpan);
       } else {
+        slot.textContent = h;
         slot.addEventListener("click", () => {
           const [ano, mes, dia] = dataStr.split('-');
           const diaNum = parseInt(dia);
@@ -340,6 +349,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Função para obter o cliente logado
+  function getClienteLogado() {
+    try {
+      const clienteStr = localStorage.getItem('cliente');
+      return clienteStr ? JSON.parse(clienteStr) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Função para verificar se o cliente pode editar o agendamento
+  function podeEditarAgendamento(agendamento) {
+    const clienteLogado = getClienteLogado();
+    // Se não há cliente logado, não pode editar
+    if (!clienteLogado || !clienteLogado.id) {
+      return false;
+    }
+    // Se o usuário é admin, pode editar qualquer agendamento
+    if (clienteLogado.Admin === true || clienteLogado.admin === true) {
+      return true;
+    }
+    // Se o agendamento não tem ClienteId (foi criado sem login), apenas admin pode editar
+    if (!agendamento.clienteId || agendamento.clienteId === 0) {
+      return false;
+    }
+    // Pode editar se for o mesmo cliente que criou o agendamento
+    return agendamento.clienteId === clienteLogado.id;
+  }
+
   function carregarListaAgendamentos(data) {
     const lista = document.getElementById("listaAgendamentos");
     lista.innerHTML = "";
@@ -349,7 +387,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     
+    const clienteLogado = getClienteLogado();
+    
     agendamentos[data].forEach((agendamento, index) => {
+      const podeEditar = podeEditarAgendamento(agendamento);
       const item = document.createElement("div");
       item.classList.add("agendamento-item");
       item.innerHTML = `
@@ -364,8 +405,9 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
         <div class="agendamento-actions">
-          <button class="btn-edit" onclick="editarAgendamento('${data}', ${index})">Editar</button>
-          <button class="btn-delete" onclick="excluirAgendamento('${data}', ${index})">Excluir</button>
+          ${podeEditar ? `<button class="btn-edit" onclick="editarAgendamento('${data}', ${index})">Editar</button>` : ''}
+          ${podeEditar ? `<button class="btn-delete" onclick="excluirAgendamento('${data}', ${index})">Excluir</button>` : ''}
+          ${!podeEditar ? `<span class="agendamento-info-text">Apenas o cliente que criou este agendamento ou um administrador pode editá-lo</span>` : ''}
         </div>
       `;
       lista.appendChild(item);
@@ -375,7 +417,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funções globais para editar e excluir
   window.editarAgendamento = function(data, index) {
     const agendamento = agendamentos[data][index];
-    agendamentoEditando = { data, index };
+    
+    // Verificar se o cliente pode editar
+    if (!podeEditarAgendamento(agendamento)) {
+      mostrarNotificacao("Você não tem permissão para editar este agendamento. Apenas o cliente que criou o agendamento ou um administrador pode editá-lo.", "error");
+      return;
+    }
+    
+    agendamentoEditando = { data, index, servicoId: agendamento.servicoId };
     
     document.getElementById("popupTime").value = agendamento.hora;
     document.getElementById("nomeCliente").value = agendamento.nome;
@@ -399,9 +448,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.excluirAgendamento = function(data, index) {
     const agendamento = agendamentos[data][index];
+    
+    // Verificar se o cliente pode excluir
+    if (!podeEditarAgendamento(agendamento)) {
+      mostrarNotificacao("Você não tem permissão para excluir este agendamento. Apenas o cliente que criou o agendamento ou um administrador pode excluí-lo.", "error");
+      return;
+    }
+    
     confirmarExclusao(
       `Tem certeza que deseja excluir o agendamento de ${agendamento.nome} às ${agendamento.hora}?`,
-      () => {
+      async () => {
+        // Se tiver servicoId, deletar na API também
+        if (agendamento.servicoId) {
+          const clienteLogado = getClienteLogado();
+          const clienteId = clienteLogado && clienteLogado.id ? clienteLogado.id : null;
+          
+          try {
+            const url = `${API_BASE_URL}/Servico/${agendamento.servicoId}${clienteId ? `?clienteId=${clienteId}` : ''}`;
+            const response = await fetch(url, {
+              method: 'DELETE'
+            });
+            
+            if (!response.ok) {
+              const errorData = await response.json().catch(() => ({}));
+              throw new Error(errorData.message || 'Erro ao excluir agendamento na API');
+            }
+          } catch (error) {
+            console.error('Erro ao excluir na API:', error);
+            mostrarNotificacao('Erro ao excluir agendamento: ' + error.message, 'error');
+            return;
+          }
+        }
+        
         agendamentos[data].splice(index, 1);
         if (agendamentos[data].length === 0) {
           delete agendamentos[data];
@@ -457,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (popupConfirmBtn) {
-    popupConfirmBtn.addEventListener("click", () => {
+    popupConfirmBtn.addEventListener("click", async () => {
       const nomeEl = document.getElementById("nomeCliente");
       const tipoEl = document.getElementById("tipoServico");
       const placaEl = document.getElementById("placaMoto");
@@ -510,6 +588,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+      // Obter cliente logado para incluir ClienteId
+      const clienteLogado = getClienteLogado();
+      const clienteId = clienteLogado && clienteLogado.id ? clienteLogado.id : null;
+
       // Enviar para API ANTES de salvar localmente (salvamento em JSON no backend)
       if (window.enviarSolicitacaoServico && !agendamentoEditando) {
         const dadosSolicitacao = {
@@ -520,7 +602,8 @@ document.addEventListener("DOMContentLoaded", () => {
           telefone: telefone || null,
           data: data,
           horario: hora,
-          observacoes: obs || null
+          observacoes: obs || null,
+          clienteId: clienteId
         };
         
         // Enviar de forma assíncrona (não bloquear a interface)
@@ -539,9 +622,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Atualizar visualização local (para o calendário)
       if (agendamentoEditando) {
-        agendamentos[data][agendamentoEditando.index] = novoAgendamento;
-        mostrarNotificacao("Agendamento atualizado com sucesso!", "success");
+        // Se estiver editando, atualizar na API também
+        if (agendamentoEditando.servicoId) {
+          const clienteLogado = getClienteLogado();
+          const clienteId = clienteLogado && clienteLogado.id ? clienteLogado.id : null;
+          
+          const servicoAtualizado = {
+            cliente: nome,
+            tipoServico: tipo,
+            moto: '',
+            placa: placa,
+            telefone: telefone || null,
+            data: data,
+            horario: hora,
+            observacoes: obs || null
+          };
+          
+          const url = `${API_BASE_URL}/Servico/${agendamentoEditando.servicoId}${clienteId ? `?clienteId=${clienteId}` : ''}`;
+          
+          try {
+            const response = await fetch(url, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(servicoAtualizado)
+            });
+            
+            if (!response.ok) {
+              const errorData = await response.json().catch(() => ({}));
+              throw new Error(errorData.message || 'Erro ao atualizar agendamento');
+            }
+            
+            console.log('✅ Agendamento atualizado na API');
+            // Manter o ClienteId original
+            novoAgendamento.clienteId = agendamentos[data][agendamentoEditando.index].clienteId;
+            novoAgendamento.servicoId = agendamentoEditando.servicoId;
+            agendamentos[data][agendamentoEditando.index] = novoAgendamento;
+            mostrarNotificacao("Agendamento atualizado com sucesso!", "success");
+          } catch (error) {
+            console.error('❌ Erro ao atualizar na API:', error);
+            mostrarNotificacao('Erro ao atualizar agendamento: ' + error.message, 'error');
+            return; // Não atualizar localmente se falhar na API
+          }
+        } else {
+          // Se não tiver servicoId, apenas atualizar localmente
+          agendamentos[data][agendamentoEditando.index] = novoAgendamento;
+          mostrarNotificacao("Agendamento atualizado com sucesso!", "success");
+        }
       } else {
+        // Adicionar ClienteId ao novo agendamento
+        novoAgendamento.clienteId = clienteId || 0;
         agendamentos[data].push(novoAgendamento);
         mostrarNotificacao("Serviço agendado com sucesso!", "success");
       }

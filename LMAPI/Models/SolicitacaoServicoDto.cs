@@ -12,6 +12,7 @@ namespace LMAPI.Models
         public DateTime Data { get; set; }
         public string Horario { get; set; } = string.Empty;
         public string? Observacoes { get; set; }
+        public int? ClienteId { get; set; } // ID do cliente logado que está criando o agendamento
     }
 }
 
