@@ -28,14 +28,16 @@ namespace LMAPI.Services
             }
 
             // Tudo certo: desconta as quantidades de paus
+            var pecasParaAtualizar = new List<Peca>();
             foreach (var usada in pecasUsadas)
             {
                 var peca = pecas.First(p => p.Id == usada.PecaId);
                 peca.Quantidade -= usada.Quantidade;
+                pecasParaAtualizar.Add(peca);
             }
 
-            // Atualiza o breask
-            foreach (var peca in pecas)
+            // Atualiza apenas as peças que foram modificadas
+            foreach (var peca in pecasParaAtualizar)
                 _pecaRepository.Update(peca.Id, peca);
 
             return true;

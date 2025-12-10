@@ -119,6 +119,118 @@ namespace LMAPI.Controllers
             }
         }
 
+        [HttpPut("{id}/finalizar")]
+        public IActionResult FinalizarServico(int id, [FromBody] FinalizarServicoDto finalizacao)
+        {
+            try
+            {
+                if (finalizacao == null)
+                {
+                    return BadRequest(new { message = "Dados de finalização não fornecidos." });
+                }
+
+                if (finalizacao.PecasUsadas == null || finalizacao.PecasUsadas.Count == 0)
+                {
+                    return BadRequest(new { message = "Nenhuma peça informada para finalização." });
+                }
+
+                var servico = _servicoRepo.GetById(id);
+                if (servico == null)
+                {
+                    return NotFound(new { message = "Serviço não encontrado." });
+                }
+
+                // Converter DTO para modelo
+                var pecasUsadas = finalizacao.PecasUsadas.Select(p => new PecaUsada
+                {
+                    PecaId = p.PecaId,
+                    Quantidade = p.Quantidade
+                }).ToList();
+
+                // Validar e dar baixa no estoque
+                var sucesso = _estoqueService.DarBaixaEstoque(pecasUsadas);
+                if (!sucesso)
+                {
+                    return BadRequest(new { message = "Erro: peças insuficientes no estoque ou peça não encontrada." });
+                }
+
+                // Atualizar serviço com peças utilizadas e valor total
+                servico.PecasUsadas = pecasUsadas;
+                servico.ValorTotal = _estoqueService.CalcularValorTotal(pecasUsadas);
+
+                var updated = _servicoRepo.Update(id, servico);
+                if (!updated)
+                {
+                    return BadRequest(new { message = "Erro ao atualizar serviço." });
+                }
+
+                // Excluir a ordem de serviço após finalização
+                var ordens = _ordemServicoRepo.GetAll();
+                var ordemRelacionada = ordens.FirstOrDefault(o => o.ServicoId == id);
+                if (ordemRelacionada != null)
+                {
+                    _ordemServicoRepo.Delete(ordemRelacionada.Id);
+                }
+
+                return Ok(new { message = "Serviço finalizado com sucesso.", servico });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Erro ao finalizar serviço: {ex.Message}" });
+            }
+        }
+
+        [HttpPost("{id}/cancelar")]
+        public IActionResult CancelarServico(int id, [FromBody] FinalizarServicoDto cancelamento)
+        {
+            try
+            {
+                var servico = _servicoRepo.GetById(id);
+                if (servico == null)
+                {
+                    return NotFound(new { message = "Serviço não encontrado." });
+                }
+
+                // Se houver peças informadas, dar baixa no estoque
+                if (cancelamento.PecasUsadas != null && cancelamento.PecasUsadas.Count > 0)
+                {
+                    var pecasUsadas = cancelamento.PecasUsadas.Select(p => new PecaUsada
+                    {
+                        PecaId = p.PecaId,
+                        Quantidade = p.Quantidade
+                    }).ToList();
+
+                    // Validar e dar baixa no estoque
+                    var sucesso = _estoqueService.DarBaixaEstoque(pecasUsadas);
+                    if (!sucesso)
+                    {
+                        return BadRequest(new { message = "Erro: peças insuficientes no estoque ou peça não encontrada." });
+                    }
+                }
+
+                // Excluir a ordem de serviço primeiro (se existir)
+                var ordens = _ordemServicoRepo.GetAll();
+                var ordemRelacionada = ordens.FirstOrDefault(o => o.ServicoId == id);
+                if (ordemRelacionada != null)
+                {
+                    _ordemServicoRepo.Delete(ordemRelacionada.Id);
+                }
+
+                // Excluir o serviço
+                var deleted = _servicoRepo.Delete(id);
+                if (!deleted)
+                {
+                    return BadRequest(new { message = "Erro ao excluir serviço." });
+                }
+
+                return Ok(new { message = "Serviço cancelado com sucesso. Peças dadas baixa no estoque." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Erro ao cancelar serviço: {ex.Message}" });
+            }
+        }
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Servico servico, [FromQuery] int? clienteId = null)
         {

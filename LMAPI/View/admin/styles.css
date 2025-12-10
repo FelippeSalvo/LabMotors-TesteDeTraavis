@@ -316,6 +316,11 @@ body {
     color: #000000;
 }
 
+.peca-table td.estoque-baixo {
+    color: #dc3545;
+    font-weight: 700;
+}
+
 .peca-table tbody tr:hover {
     background-color: #f9f9f9;
 }

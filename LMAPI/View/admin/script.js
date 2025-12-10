@@ -225,7 +225,7 @@ function renderPecas(pecasToRender) {
                             ${peca.precoUnitario < 150 ? '<span class="price-dot">●</span>' : ''}
                         </span>
                     </td>
-                    <td>${peca.quantidade}</td>
+                    <td class="${peca.quantidade < 5 ? 'estoque-baixo' : ''}">${peca.quantidade}</td>
                     <td class="actions">
                         <button class="edit-btn" onclick="handleEdit(${peca.id})" title="Editar">
                         Editar

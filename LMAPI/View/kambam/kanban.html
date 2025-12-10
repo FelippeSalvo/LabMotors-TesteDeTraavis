@@ -39,6 +39,11 @@
       <div class="kanban-items" id="waiting"></div>
     </div>
 
+    <div class="kanban-column ready" data-status="ready">
+      <h2>Pronto para Contato</h2>
+      <div class="kanban-items" id="ready"></div>
+    </div>
+
     <div class="kanban-column progress" data-status="progress">
       <h2>Em Andamento</h2>
       <div class="kanban-items" id="progress"></div>
@@ -109,6 +114,9 @@
     </div>
   </div>
 </footer>
+
+  <!-- Sistema de Notificações -->
+  <div id="notification-container"></div>
 
   <script src="../Auth/api-auth.js"></script>
   <script src="kanban.js"></script>
