@@ -1,0 +1,57 @@
+[33m0ee6c81[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Ajustando header
+[33mc4e1d1f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Adiciona aba de "Pronto para Contato" no kanbam e implementa tela de conclusão de serviço com baixa de estoque. TODO: tentar otimizar o codigo, kanban ta mt lento, pode ser por conta do render.
+[33me26622b[m Adiciona validação para Agenda, agora apenas o cliente que fez o agendamento e o adm podem editar os agendamentos. Alteração no desing de horários já marcados para deixar mais nítido que está ocupado.
+[33m741af31[m mudanças no footer da aba de serviços
+[33m6be92cc[m arrumano assyemblies pra n ndar conlfito no banco
+[33mcdba928[m arrumando footer das paginas logadas
+[33mf826aed[m link footer na pagina de admin
+[33m2da3291[m pequenas alterações no HTML & CSS 2
+[33mb3ced36[m Revert "Commit bomba resolvido"
+[33mbc3cf2b[m Revert "Merge branch 'main' of https://github.com/FelippeSalvo/LabMotors-TesteDeTraavis"
+[33mc20a34c[m Merge branch 'main' of https://github.com/FelippeSalvo/LabMotors-TesteDeTraavis
+[33m4477ca5[m Commit bomba resolvido
+[33m963a930[m Merge branch 'main' of https://github.com/FelippeSalvo/LabMotors-TesteDeTraavis
+[33m361c741[m Refatorando classe de banco de dados pra ficar mais legivel + add guia do sistema
+[33mafb7493[m adicionando pequenas funcionalidades HTML & CSS
+[33m81aa866[m atualiza links da api para o link de deploy
+[33mbe5e654[m adiciona dockerfile para o deploy
+[33m40cf9f5[m Correção de href
+[33maddd56f[m arruama header da home pro active ficar em "home"
+[33me5ef42b[m Correção de href
+[33m7890f76[m Alterações em links e css
+[33m892cc4a[m Arrumando a homepage, removido a seção de produtos e a de solicitação de serviço, adicionado a seção de como funciona o processo
+[33m3687630[m Ajustes de interface na pagina de acompanhamento e adm
+[33m743d8ff[m Refatora o codigo para usar Banco de Dados ao inves do json provisorio
+[33m2016275[m Merge pull request #3 from FelippeSalvo/bruno
+[33mf515f30[m Adicionando aba de serviços 2
+[33mdb57e58[m Adicionando aba de serviços
+[33ma3803a9[m Implementa lógica completa dos serviços relacionados a pasmem, Serviços, seja consulta, estado e encerramento, com isso o backend ta terminado {commit Hiroshima Codezaki}
+[33mcf1a4fd[m Merge branch 'main' of https://github.com/FelippeSalvo/LabMotors-TesteDeTraavis
+[33m22aceb6[m Commit Igor - implementação da página completa de agendamentos, com calendário, horários, notificações, edição/remoção
+[33m9fb101d[m Revert "ajuste pagina acompanhamento"
+[33m148764a[m ajuste pagina acompanhamento
+[33me28d412[m ajuste pagina acompanhamento
+[33m5af2bdb[m implementacao pagina acompanhamento
+[33m40ff2a7[m Adiciona exibição de paginas para cenarios como "Usuário n logado" || "Usuário Logado" || "Usuário adm" e ajuste nos links dos headers
+[33ma72ea5e[m add arquivo de fallback
+[33mb24beaf[m Implementa lógica de login e cadastro, alem de mudar o botao. {commit bomba, preparar para o pior }
+[33mb17ddb2[m Ajusta api para Cliente ter um campo de {admin}
+[33m6a7bab2[m Implementação da tela de login/cadastro
+[33me5efc2d[m Merge branch 'main' of https://github.com/FelippeSalvo/LabMotors-TesteDeTraavis
+[33m543ed33[m Implementação da tela de login/cadastro
+[33maaf0e3b[m Implementação da tela de login/cadastro
+[33m8e03f6b[m[33m ([m[1;31morigin/daniel[m[33m)[m Pagina Kamban
+[33m0b60f2d[m Merge branch 'main' into daniel
+[33m3cd6b09[m Motolab -> LabMotos
+[33m69e7b6c[m Merge pull request #2 from FelippeSalvo/gabriel
+[33m965600c[m[33m ([m[1;31morigin/gabriel[m[33m)[m adicionando pagina de acompanhamento
+[33ma038dce[m Ajuste de imagem na logo
+[33m24fb402[m Arruma links de css da homepage
+[33m8a5acda[m ajustandi assemblyies 3
+[33m5a83568[m Ajustando ASSEMBLYIES 2
+[33mcbf2d7f[m Ajustando Assemblyies
+[33mb55ade6[m Pagina Kanbam de controle de serviços
+[33mb6dcd4d[m Mudanças
+[33m58b73bb[m Merge pull request #1 from FelippeSalvo/davizao
+[33mb461e1b[m[33m ([m[1;31morigin/davizao[m[33m)[m homepage in travis in socket
+[33me46f850[m Inclusao da pagina do adm e alterações para melhor comportamento da API
