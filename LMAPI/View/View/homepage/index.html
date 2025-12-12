@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LabMotos</title>
+<link rel="icon" href="../img/Logo.png">
+<link rel="stylesheet" href="src/css/footer.css">
+<link rel="stylesheet" href="src/css/header.css">
+<link rel="stylesheet" href="src/css/style.css">
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M8 12l3 3 5-6"></path>
+    </symbol>
+    <symbol id="i-spring" viewBox="0 0 24 24">
+      <path d="M6 6l4 3-4 3 4 3-4 3"></path>
+    </symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24">
+      <path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"></path>
+    </symbol>
+    <symbol id="i-tire" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8"></circle>
+      <circle cx="12" cy="12" r="4"></circle>
+    </symbol>
+    <symbol id="i-oil" viewBox="0 0 24 24">
+      <path d="M12 3c4 5 5 7 5 9a5 5 0 11-10 0c0-2 1-4 5-9z"></path>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13 2L6 12h5l-1 10 7-12h-5l1-8z"></path>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 7v5l3 2"></path>
+    </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="3"></circle>
+      <path d="M4 20c2.5-4 13.5-4 16 0"></path>
+    </symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M8 12l3 3 5-6"></path>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M22 17l-3 2c-6-3-10-7-13-13l2-3 4 2-2 3c2 3 4 5 7 7l3-2 2 4z"></path>
+    </symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" ry="3"></rect>
+      <circle cx="12" cy="12" r="4"></circle>
+      <circle cx="18" cy="9" r="1"></circle>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M2 12h20M12 2c3.5 3.5 3.5 18.5 0 20M12 2c-3.5 3.5-3.5 18.5 0 20"></path>
+    </symbol>
+  </svg>
+
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <a href="../homepage/index.html">
+        <img src="../img/Logo.png" alt="Logo da LabMotos" class="logo-img">
+        </a>
+      </div>
+      <nav class="nav">
+        <a href="../homepage/index.html" class="nav-link active">Home</a>
+          <a href="../homepage/index.html#quem-somos" class="nav-link">Quem Somos</a>
+          <a href="../servicos/servicos.html" class="nav-link">Serviços</a>
+          <a href="../homepage/index.html#clientes" class="nav-link">Clientes</a>
+          <a href="../acompanhamento/acomp.html" class="nav-link nav-link-acompanhamento" id="acompanhamento-link">Acompanhamento</a>
+          <a href="../Agenda/index.html" class="nav-link">Agenda</a>
+          <a href="../admin/index.html" class="nav-link nav-link-admin">Admin</a>
+          <a href="../kambam/kanban.html" class="nav-link nav-link-admin">Kanban</a>
+      </nav>
+      <button class="signup-btn"><a href="../login/index.html" style="color: white; text-decoration: none;">SIGN UP</a></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner container">
+      <h1>LabMotos</h1>
+      <p class="hero-sub">Performance, transparência e cuidado em cada detalhe da sua moto.</p>
+      <div class="icon-grid">
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-check"/></svg></div><span class="icon-label">Revisão</span></div>
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-spring"/></svg></div><span class="icon-label">Suspensão</span></div>
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-stop"/></svg></div><span class="icon-label">Freios</span></div>
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-tire"/></svg></div><span class="icon-label">Pneus</span></div>
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-oil"/></svg></div><span class="icon-label">Troca de óleo</span></div>
+        <div class="icon-item"><div class="icon-badge"><svg class="icon"><use href="#i-bolt"/></svg></div><span class="icon-label">Elétrica</span></div>
+      </div>
+      <a href="../servicos/servicos.html" class="button button-primary">Solicitar serviço</a>
+    </div>
+  </section>
+
+  <section id="processo" class="section-muted">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Fluxo de Atendimento</span>
+        <h2 class="section-title">Como funciona o processo</h2>
+        <p class="section-sub">Da solicitação digital à entrega da sua moto, garantimos transparência, agilidade e a melhor experiência técnica do mercado.</p>
+      </div>
+  
+      <div class="process-grid">
+        
+        <article class="process-card">
+          <div class="process-number">01</div>
+          <div class="process-content">
+            <div class="process-icon">
+              <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <h3 class="info-title">Agendamento Inteligente</h3>
+            <p class="info-text">
+              Tudo começa aqui no site. Você preenche os dados da sua motocicleta e seleciona o serviço desejado em nossa plataforma digital. Nosso sistema registra sua demanda instantaneamente, eliminando filas de espera telefônica e garantindo o registro preciso da sua necessidade técnica.
+            </p>
+          </div>
+        </article>
+  
+        <article class="process-card">
+          <div class="process-number">02</div>
+          <div class="process-content">
+            <div class="process-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </div>
+            <h3 class="info-title">Triagem & Validação</h3>
+            <p class="info-text">
+              Sua solicitação cai diretamente para nossa central de atendimento. Um consultor especializado analisa o pedido, verifica a disponibilidade de peças no estoque e entra em contato via WhatsApp. Confirmamos o orçamento preliminar e alinhamos o melhor horário para você, sem surpresas.
+            </p>
+          </div>
+        </article>
+  
+        <article class="process-card">
+          <div class="process-number">03</div>
+          <div class="process-content">
+            <div class="process-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3 class="info-title">Recepção Premium</h3>
+            <p class="info-text">
+              Com tudo agendado, basta trazer sua moto. Nossa equipe já estará aguardando com o box de serviço preparado e o checklist inicial pronto. Realizamos a recepção técnica, validamos o diagnóstico presencialmente e iniciamos o serviço enquanto você aguarda em nosso lounge ou retorna para buscar.
+            </p>
+          </div>
+        </article>
+  
+      </div>
+
+  
+    </div>
+  </section>
+  
+  
+
+  <section id="quem-somos" class="section-plain">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Nossa essência</span>
+        <h2 class="section-title">Quem é a Lab Motos</h2>
+        <p class="section-sub">Paixão por duas rodas, precisão técnica e transparência com o cliente.</p>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <h3 class="about-title">Mais do que consertar, entregamos experiência</h3>
+          <p>A Lab Motos nasceu para elevar o padrão das oficinas de motos. Unimos técnica, confiança e um atendimento de ponta para quem valoriza desempenho e cuidado em cada detalhe. Nosso processo é claro, com orçamentos explicados e fotos do serviço quando solicitado.</p>
+          <ul class="checklist">
+            <li>Atendimento consultivo e humanizado</li>
+            <li>Peças homologadas e garantia de serviço</li>
+            <li>Entrega rápida e comunicação contínua</li>
+          </ul>
+        </div>
+        <div class="about-gallery">
+          <img src="src/img/about2.jpeg" alt="Oficina LabMotos">
+          <img src="src/img/about2.jpg" alt="Serviços LabMotos">
+          <img src="src/img/about3.jpg" alt="Equipe LabMotos">
+          <img src="src/img/about4.jpg" alt="Atendimento LabMotos">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clientes" class="section-muted">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Confiança real</span>
+        <h2 class="section-title">Clientes satisfeitos</h2>
+        <p class="section-sub">Alguns feedbacks de quem já trouxe a moto pra gente.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="card testimonial-card">
+          <div class="testimonial-header">
+            <div class="img"><img src="src/img/bruno.jpeg" alt="Bruno"></div>
+            <div class="head-meta">
+              <span class="name">Bruno</span>
+              <span class="stars">★★★★★</span>
+            </div>
+          </div>
+          <p class="quote">Serviço rápido e honesto. Explicaram tudo antes de fazer e a moto ficou outra.</p>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-header">
+            <div class="img"><img src="src/img/mi.jpeg" alt="Camila"></div>
+            <div class="head-meta">
+              <span class="name">Camila</span>
+              <span class="stars">★★★★★</span>
+            </div>
+          </div>
+          <p class="quote">Atendimento pelo Whats incrível. Me mandaram fotos do processo e entregaram no prazo.</p>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-header">
+            <div class="img"><img src="src/img/fel.jpeg" alt="Felipe"></div>
+            <div class="head-meta">
+              <span class="name">Felipe</span>
+              <span class="stars">★★★★☆</span>
+            </div>
+          </div>
+          <p class="quote">Preço justo e peças de qualidade. Voltarei para a revisão geral.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<footer class="modern-footer">
+  <div class="container">
+    <div class="row">
+      <!-- Coluna Marca / Descrição / Social -->
+      <div class="footer-brand">
+        <a href="../homepage/index.html">
+        <img src="../img/Logo.png" alt="LabMotos Logo" class="footer-logo">
+        </a>
+        <h3>LabMotos</h3>
+        <p class="footer-description">
+          Paixão por motos e compromisso em elevar o padrão das oficinas, unindo técnica, confiança e transparência.
+        </p>
+        <div class="footer-social">
+          <a href="https://wa.me/31991362050" target="_blank" class="social-icon" aria-label="WhatsApp">
+            <!-- WhatsApp SVG -->
+            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/labmotossl" target="_blank" class="social-icon" aria-label="Instagram">
+            <!-- Instagram SVG -->
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Facebook">
+            <!-- Facebook SVG -->
+            <svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Coluna Links Rápidos -->
+      <div>
+        <h4 class="footer-title">Links Rápidos</h4>
+        <ul class="footer-links">
+          <li><a href="../homepage/index.html">Início</a></li>
+          <li><a href="../homepage/index.html#quem-somos" class="nav-link">Sobre Nós</a></li>
+          <li><a href="#processo">Processo</a></li>
+          <li><a href="#clientes">Clientes</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna Serviços -->
+      <div>
+        <h4 class="footer-title">Nossos Serviços</h4>
+        <ul class="footer-links">
+          <li><a href="../servicos/servicos.html">Revisão Geral</a></li>
+          <li><a href="../servicos/servicos.html">Suspensão</a></li>
+          <li><a href="../servicos/servicos.html">Freios</a></li>
+          <li><a href="../servicos/servicos.html">Troca de Óleo</a></li>
+          <li><a href="../servicos/servicos.html">Elétrica</a></li>
+          <li><a href="../servicos/servicos.html">Transmissão</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copyright">© 2025 LabMotos - Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+  <script src="../Auth/api-auth.js"></script>
+</body>
+</html>
